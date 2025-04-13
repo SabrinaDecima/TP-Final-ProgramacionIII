@@ -12,6 +12,7 @@ CodeFit es una aplicación web pensada para mejorar la experiencia de los usuari
 🕒 Consultar días y horarios de las distintas clases disponibles.
 
 🛠️ Tecnologías utilizadas
+
 Frontend:
 React
 JavaScript
