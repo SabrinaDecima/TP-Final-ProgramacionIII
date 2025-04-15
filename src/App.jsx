@@ -7,10 +7,7 @@ function App() {
 
   return (
     <>
-      <div>
-      <Login/>
-      </div>
-
+      <Login />
     </>
   )
 }
