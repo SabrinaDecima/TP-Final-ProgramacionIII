@@ -1,8 +1,9 @@
 
-import { useState, useRef } from "react";
+import { useState, useRef, useNavigate } from "react";
 import { Container, Button, Card, Col, Form, FormGroup, Row, Toast, ToastContainer } from "react-bootstrap";
 
-const Login = () => {
+const Login = () => {ç
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({
@@ -65,6 +66,8 @@ const Login = () => {
         }
 
         showToast(`Sesión iniciada con éxito para: ${email}`, 'success');
+        // onLogin(); ver esta linea
+        navigate('/dashboard');
 
     }
 
