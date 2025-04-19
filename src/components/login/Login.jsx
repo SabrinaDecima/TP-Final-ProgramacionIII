@@ -1,8 +1,10 @@
 
-import { useState, useRef, useNavigate } from "react";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router";
+import { Link } from 'react-router';
 import { Container, Button, Card, Col, Form, FormGroup, Row, Toast, ToastContainer } from "react-bootstrap";
 
-const Login = () => {ç
+const Login = (onLogin) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -10,6 +12,20 @@ const Login = () => {ç
         email: false,
         password: false,
     })
+
+    const handleLogin = (role) => {
+        if (role === "admin") {
+          // Redirije dashboard de Admin
+          onLogin("admin");
+        } else if (role === "superadmin") {
+          // Redirije dashboard de Superadmin
+          onLogin("superadmin");
+        } else {
+          // Redirije dashboard de Socio
+          onLogin("socio");
+        }
+      };
+        
     const [toast, setToast] = useState({
         show: false,
         message: '',
@@ -66,7 +82,7 @@ const Login = () => {ç
         }
 
         showToast(`Sesión iniciada con éxito para: ${email}`, 'success');
-        // onLogin(); ver esta linea
+        onLogin();
         navigate('/dashboard');
 
     }
@@ -110,10 +126,10 @@ const Login = () => {ç
                                     </div>
                                     <Row className="mt-3">
                                         <Col className="text-start">
-                                            <a href="/recuperar" className="text-decoration-underline text-start text-dark" >¿Olvidaste tu contraseña?</a>  {/* href no podemos usarlo, tener en cuenta desp*/}
+                                        <Link to="/recuperar" className="text-decoration-underline text-start text-dark">Olvidaste tu contraseña?</Link>
                                         </Col>
                                         <Col className="text-end">
-                                            <a href="/registro" className="text-decoration-underline text-start text-dark">Registrarse</a> {/* href no podemos usarlo, tener en cuenta desp*/}
+                                        <Link to="/registro" className="text-decoration-underline text-dark">Registrarse</Link>
                                         </Col>
                                     </Row>
                                 </Form>
