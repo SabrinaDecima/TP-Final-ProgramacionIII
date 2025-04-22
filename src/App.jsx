@@ -20,11 +20,6 @@ import Admins from './components/routes/admins/Admins'; //  gestionar admins, so
 
 
 
-
-
-
-
-
 const App = () => {
 
   const [isSignedIn, setIsSignedIn] = useState(false);

@@ -22,6 +22,11 @@ const Dashboard = ({ role, onLogout }) => {
     navigate('/dashboard/historial');
   };
 
+  const goToGestionSocios = () => {
+    navigate('/dashboard/gestion-socios');
+  };
+
+
   return (
     <Container>
       <h2>Bienvenido al Dashboard</h2>
@@ -38,7 +43,7 @@ const Dashboard = ({ role, onLogout }) => {
           {role === 'admin' && (
             <div>
               <Button onClick={() => navigate('/dashboard/socios')}>Ver socios</Button>
-              <Button onClick={() => navigate('/dashboard/estadisticas')}>Ver estadísticas</Button>
+              <Button onClick={goToGestionSocios}>Gestionar Socios</Button> {/* Agregado solo para admin */}
             </div>
           )}
 

@@ -6,13 +6,7 @@ const Protected = ({ isSignedIn, role, children }) => {
     }
   
     // Validando el acceso por rol
-    if (role === "socio") {
-      return <>{children}</>;
-    }
-    if (role === "admin") {
-      return <>{children}</>;
-    }
-    if (role === "superadmin") {
+    if (role === "socio" || role === "admin" || role === "superadmin") {
       return <>{children}</>;
     }
   

@@ -5,7 +5,7 @@ const Clases = () => {
   const [clases, setClases] = useState([]);
 
   useEffect(() => {
-    // datos de base de datos
+    // datos de base de datos, ejemplo 
     setClases([
       { id: 1, nombre: 'Yoga', horario: '9:00 HS' },
       { id: 2, nombre: 'Pilates', horario: '10:00 HS' },
