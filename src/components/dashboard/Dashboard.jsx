@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router';
 const Dashboard = ({ role, onLogout }) => {
   const navigate = useNavigate();
 
-
   const goToClasses = () => {
     navigate('/dashboard/clases');
   };

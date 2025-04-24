@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { Link } from 'react-router';
 import { Container, Button, Card, Col, Form, FormGroup, Row, Toast, ToastContainer } from "react-bootstrap";
 
-const Login = (onLogin) => {
+const Login = ({onLogin}) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -81,8 +81,9 @@ const Login = (onLogin) => {
             return;
         }
 
+        const role = "socio";
         showToast(`Sesión iniciada con éxito para: ${email}`, 'success');
-        onLogin();
+        onLogin(role);
         navigate('/dashboard');
 
     }

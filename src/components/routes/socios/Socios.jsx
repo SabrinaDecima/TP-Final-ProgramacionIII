@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Alert, Card } from 'react-bootstrap';
-import Clases from './components/routes/clases/Clases'; 
+// import Clases from './components/routes/clases/Clases'; 
 
 const Socios = () => {
   const [cuotaPaga, setCuotaPaga] = useState(false); // Estado para setear la cuota mensual

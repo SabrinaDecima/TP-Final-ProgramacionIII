@@ -23,13 +23,16 @@ import Admins from './components/routes/admins/Admins'; //  gestionar admins, so
 const App = () => {
 
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
   const handleSignIn = () => {
+    setUserRole(role);
     setIsSignedIn(true);
   }
 
   const handleLogout = () => {
     setIsSignedIn(false);
+    setUserRole(null);
   }
 
   return (
@@ -39,13 +42,13 @@ const App = () => {
           <Route path='/' element={<Navigate to='login' />} />
           <Route path="login" element={<Login onLogin={handleSignIn} />} />
           <Route element={<Protected isSignedIn={isSignedIn} />}>
-          <Route path="/dashboard" element={<Dashboard onLogout={handleLogout} />}>
+          <Route path="/dashboard" element={<Dashboard role={userRole} onLogout={handleLogout} />}>
             <Route path="clases" element={<Clases />} />
             <Route path="pagos" element={<Pagos />} />
-            <Route path="historial" element={<Historial />} />
-            <Route path="socios" element={<Socios />} />
+            {/* <Route path="historial" element={<Historial />} /> */}
+            {/* <Route path="socios" element={<Socios />} /> */}
             <Route path="gestion-socios" element={<GestionSocios />} />
-            <Route path="admins" element={<Admins />} />
+            {/* <Route path="admins" element={<Admins />} /> */}
           </Route>
         </Route>
           <Route path="*" element={<NotFound />} />
