@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Alert, Card } from 'react-bootstrap';
-// import Clases from './components/routes/clases/Clases'; 
+// import GymClasses from './components/routes/clases/GymClasses'; 
 
 const Socios = () => {
   const [cuotaPaga, setCuotaPaga] = useState(false); // Estado para setear la cuota mensual
@@ -53,8 +53,8 @@ const Socios = () => {
         </Card.Body>
       </Card>
 
-      {/* Clases disponibles */}
-      <Clases onSolicitarTurno={solicitarTurno} cuotaPaga={cuotaPaga} />
+      {/* GymClasses disponibles */}
+      <GymClasses onSolicitarTurno={solicitarTurno} cuotaPaga={cuotaPaga} />
       
     </div>
   );

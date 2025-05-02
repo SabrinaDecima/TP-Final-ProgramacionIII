@@ -9,13 +9,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 
 // Estilos
 import "./App.css";
+import { ToastContainer } from "react-toastify";
 
 import Login from "./components/auth/login/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import NotFound from "./components/routes/notFound/NotFound";
 import Protected from "./components/routes/protected/Protected";
 
-import Clases from "./components/routes/clases/Clases"; // socios solicitan turnos
+import GymClasses from "./components/clases/gymClasses/GymClasses"; // socios solicitan turnos
 import Pagos from "./components/routes/pagos/Pagos"; // pagos de cuotas
 import Historial from "./components/routes/historial/Historial"; // historial de clases
 import Socios from "./components/routes/socios/Socios"; // admin que ve todos los socios
@@ -35,16 +36,16 @@ const App = () => {
 
   return (
     <div className="d-flex flex-column align-items-center">
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="login" />} />
           <Route path="login" element={<Login onLogin={handleSignIn} />} />
           <Route element={<Protected isSignedIn={isSignedIn} />}>
             <Route
-              path="/dashboard"
+              path="/home/*"
               element={<Dashboard onLogout={handleLogout} />}
             />
-            <Route path="/clases" element={<Clases />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

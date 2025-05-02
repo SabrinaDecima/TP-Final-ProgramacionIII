@@ -8,10 +8,9 @@ import {
   Col,
   Form,
   FormGroup,
-  Row,
-  Toast,
-  ToastContainer,
+  Row
 } from "react-bootstrap";
+import {successToast} from "../../../utils/notification"
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -33,19 +32,6 @@ const Login = ({ onLogin }) => {
       // Redirije dashboard de Socio
       onLogin("socio");
     }
-  };
-
-  const [toast, setToast] = useState({
-    show: false,
-    message: "",
-    bg: "danger",
-  });
-  const showToast = (message, bg = "danger") => {
-    setToast({
-      show: true,
-      message,
-      bg,
-    });
   };
 
   const emailRef = useRef(null);
@@ -90,9 +76,9 @@ const Login = ({ onLogin }) => {
       return;
     }
     // const role = "socio";
-    showToast(`Sesión iniciada con éxito para: ${email}`, "success");
+    successToast(`Sesión iniciada con éxito para: ${email}`);
     onLogin();
-    navigate("/dashboard");
+    navigate("/home");
   };
 
   return (
@@ -169,17 +155,7 @@ const Login = ({ onLogin }) => {
           </Col>
         </Row>
       </Container>
-      <ToastContainer position="top-end" className="p-3">
-        <Toast
-          bg={toast.bg}
-          onClose={() => setToast({ ...toast, show: false })}
-          show={toast.show}
-          delay={3000}
-          autohide
-        >
-          <Toast.Body className="text-white">{toast.message}</Toast.Body>
-        </Toast>
-      </ToastContainer>
+
     </>
   );
 };
