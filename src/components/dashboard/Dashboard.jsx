@@ -1,4 +1,4 @@
-import {  useEffect, useState  } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { Routes, Route, useLocation, useNavigate } from 'react-router';
 
@@ -13,10 +13,10 @@ const Dashboard = ({ role, onLogout }) => {
   useEffect(() => {
 
     if (location.pathname === "/home")
-        fetch("http://localhost:3000/actividades")
-            .then(res => res.json())
-            .then(data => setClases([...data]))
-            .catch(err => console.log(err))
+      fetch("http://localhost:3000/clases")
+        .then(res => res.json())
+        .then(data => setClases([...data]))
+        .catch(err => console.log(err))
   }, [location]);
 
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Dashboard = ({ role, onLogout }) => {
   //   navigate('/home/pagos');
   // };
 
- 
+
   // const goToHistory = () => {
   //   navigate('/home/historial');
   // };
@@ -71,13 +71,13 @@ const Dashboard = ({ role, onLogout }) => {
 
     //   <Button onClick={onLogout}>Cerrar sesión</Button>
     // </Container>
-    <>  
+    <>
       <h2>Bienvenido al Dashboard</h2>        <Row className="w-100 my-3">
-            <Col />
-            <Col md={3} className="d-flex justify-content-end ">
-                <Button onClick={onLogout}>Cerrar sesión</Button>
-            </Col>
-        </Row>
+        <Col />
+        <Col md={3} className="d-flex justify-content-end ">
+          <Button onClick={onLogout}>Cerrar sesión</Button>
+        </Col>
+      </Row>
       <Routes>
         <Route index element={<GymClasses clases={clases} />} />
       </Routes>

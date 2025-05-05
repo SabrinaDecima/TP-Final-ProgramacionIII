@@ -3,7 +3,7 @@ import { Card, Button, Row, Col } from 'react-bootstrap';
 const GymClasses = ({ clases }) => {
   return (
     <div className="mt-4">
-      <h3 className="text-center mb-4">Actividades disponibles</h3>
+      <h3 className="text-center mb-4">Clases disponibles</h3>
       <Row>
         {clases.map((clase) => (
           <Col key={clase.id} md={4} className="mb-4">
