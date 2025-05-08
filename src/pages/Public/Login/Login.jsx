@@ -11,6 +11,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import { successToast, errorToast } from '../../../utils/notification';
+import { HouseDoorFill, HouseExclamationFill } from 'react-bootstrap-icons';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -81,12 +82,21 @@ const Login = ({ onLogin }) => {
     navigate('/dashboard');
   };
 
+  const goBackLoginHandler = () => {
+    navigate('/home');
+  };
+
   return (
     <>
       <Container
         fluid
         className="vh-100 d-flex justify-content-center align-items-center"
       >
+        <Row className=" position-absolute top-0 end-0 m-5">
+          <Button onClick={goBackLoginHandler}>
+            <HouseDoorFill size={25} className="m-1" />
+          </Button>
+        </Row>
         <Row className="w-100 justify-content-center">
           <Col xs={12} sm={10} md={6} lg={4}>
             <Card className="p-4 shadow">
@@ -127,7 +137,7 @@ const Login = ({ onLogin }) => {
                     )}
                   </FormGroup>
                   <div className="d-flex justify-content-center">
-                    <Button variant="secondary" type="submit">
+                    <Button variant="primary" type="submit">
                       Iniciar sesión
                     </Button>
                   </div>
