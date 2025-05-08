@@ -2,7 +2,7 @@ import { Navigate, Outlet } from 'react-router';
 
 const Protected = ({ isSignedIn, role, children }) => {
   if (!isSignedIn) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/home" replace />;
   }
 
   // Validando el acceso por rol
