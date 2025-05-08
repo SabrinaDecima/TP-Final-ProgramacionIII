@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router";
-import { Link } from "react-router";
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import {
   Container,
   Button,
@@ -8,29 +8,29 @@ import {
   Col,
   Form,
   FormGroup,
-  Row
-} from "react-bootstrap";
-import {successToast} from "../../../utils/notification"
+  Row,
+} from 'react-bootstrap';
+import { successToast } from '../../../utils/notification';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({
     email: false,
     password: false,
   });
 
   const handleLogin = (role) => {
-    if (role === "admin") {
+    if (role === 'admin') {
       // Redirije dashboard de Admin
-      onLogin("admin");
-    } else if (role === "superadmin") {
+      onLogin('admin');
+    } else if (role === 'superadmin') {
       // Redirije dashboard de Superadmin
-      onLogin("superadmin");
+      onLogin('superadmin');
     } else {
       // Redirije dashboard de Socio
-      onLogin("socio");
+      onLogin('socio');
     }
   };
 
@@ -57,7 +57,7 @@ const Login = ({ onLogin }) => {
     event.preventDefault();
 
     if (!email.length) {
-      showToast("¡El email está vacío!");
+      showToast('¡El email está vacío!');
       emailRef.current.focus();
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -67,7 +67,7 @@ const Login = ({ onLogin }) => {
     }
 
     if (!passwordRef.current.value.length) {
-      showToast("¡El password está vacío!");
+      showToast('¡El password está vacío!');
       passwordRef.current.focus();
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -78,7 +78,7 @@ const Login = ({ onLogin }) => {
     // const role = "socio";
     successToast(`Sesión iniciada con éxito para: ${email}`);
     onLogin();
-    navigate("/home");
+    navigate('/dashboard');
   };
 
   return (
@@ -99,7 +99,7 @@ const Login = ({ onLogin }) => {
                     <Form.Control
                       type="text"
                       className={`input-email ${
-                        errors.email ? "border border-danger" : ""
+                        errors.email ? 'border border-danger' : ''
                       }`}
                       placeholder="Ingresar email"
                       onChange={handleEmailChange}
@@ -155,7 +155,6 @@ const Login = ({ onLogin }) => {
           </Col>
         </Row>
       </Container>
-
     </>
   );
 };

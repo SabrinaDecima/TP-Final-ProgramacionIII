@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router";
+import { Navigate, Outlet } from 'react-router';
 
 const Protected = ({ isSignedIn, role, children }) => {
   if (!isSignedIn) {

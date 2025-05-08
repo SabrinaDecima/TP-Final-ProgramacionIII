@@ -1,0 +1,35 @@
+{
+  "prices": [
+    {
+      "title": "Básico",
+      "price": "$29.99",
+      "features": [
+        "Acceso a equipamiento básico",
+        "Horario limitado",
+        "1 clase grupal por semana"
+      ]
+    },
+    {
+      "title": "Premium",
+      "price": "$49.99",
+      "features": [
+        "Acceso completo al gimnasio",
+        "Horario 24/7",
+        "Clases grupales ilimitadas",
+        "1 sesión con entrenador personal"
+      ],
+      "highlighted": true
+    },
+    {
+      "title": "Elite",
+      "price": "$79.99",
+      "features": [
+        "Acceso completo al gimnasio",
+        "Horario 24/7",
+        "Clases grupales ilimitadas",
+        "4 sesiones con entrenador personal",
+        "Plan nutricional personalizado"
+      ]
+    }
+  ]
+}
