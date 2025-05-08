@@ -13,8 +13,8 @@ If you are developing a production application, we recommend using TypeScript an
 
 # TP-Final-ProgramacionIII
 
-🏋️‍♀️ CodeFit - Gestión de Gimnasio
-CodeFit es una aplicación web pensada para mejorar la experiencia de los usuarios de un gimnasio. Permite a los socios gestionar sus actividades de manera rápida y sencilla desde cualquier dispositivo.
+🏋️‍♀️ FunctionFit() - Gestión de Gimnasio
+FunctionFit() es una aplicación web pensada para mejorar la experiencia de los usuarios de un gimnasio. Permite a los socios gestionar sus actividades de manera rápida y sencilla desde cualquier dispositivo.
 
 ✨ Funcionalidades
 📅 Solicitar turnos para clases específicas según el día y horario.

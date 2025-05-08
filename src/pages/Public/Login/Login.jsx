@@ -102,7 +102,7 @@ const Login = ({ onLogin }) => {
             <Card className="p-4 shadow">
               <Card.Body>
                 <Row className="mb-2">
-                  <h5 className="text-center">¡Bienvenidos a CodeFit!</h5>
+                  <h5 className="text-center">¡Bienvenidos a FunctionFit()!</h5>
                 </Row>
                 <Form onSubmit={handleSubmit}>
                   <FormGroup className="mb-4">

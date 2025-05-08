@@ -6,10 +6,10 @@ import prices from '../../../data/prices.json';
 const Home = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
-      <header className="sticky-top border-bottom bg-body-tertiary backdrop-blur shadow-sm">
+      <header className="fix-top border-bottom bg-body-tertiary backdrop-blur shadow-sm">
         <div className="container d-flex align-items-center justify-content-between py-3">
           <div className="d-flex align-items-center gap-2">
-            <span className="fs-5 fw-bold">GymFlex</span>
+            <span className="fs-5 fw-bold">FunctionFit()</span>
           </div>
           <div className="d-flex align-items-center gap-3">
             <Link to="/login">
@@ -31,24 +31,24 @@ const Home = () => {
               Transforma tu cuerpo, transforma tu vida
             </h1>
             <p className="lead text-muted max-w-700 mx-auto mb-5">
-              Únete a GymFlex y comienza tu viaje hacia un estilo de vida más
-              saludable con nuestros entrenadores expertos y equipamiento de
-              última generación.
+              Únete a <strong>FunctionFit()</strong> y comienza tu viaje hacia
+              un estilo de vida más saludable con nuestros entrenadores expertos
+              y equipamiento de última generación.
             </p>
             <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
               <Link to="/register">
                 <Button size="lg">Comenzar Ahora</Button>
               </Link>
-              <Link to="#planes">
+              <a href="#plans">
                 <Button size="lg" variant="outline-primary">
                   Ver Planes
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </section>
 
-        <section className="py-5 py-md-7" id="planes">
+        <section className="py-5 py-md-7" id="plans">
           <div className="container">
             <h2 className="mb-5 text-center display-6 fw-bold">
               Nuestros Planes
@@ -94,14 +94,16 @@ const Home = () => {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      variant={
-                        plan.highlighted ? 'primary' : 'outline-secondary'
-                      }
-                      className="mt-3 w-100"
-                    >
-                      Elegir Plan
-                    </Button>
+                    <Link to="/register">
+                      <Button
+                        variant={
+                          plan.highlighted ? 'primary' : 'outline-secondary'
+                        }
+                        className="mt-3 w-100"
+                      >
+                        Elegir Plan
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -206,10 +208,10 @@ const Home = () => {
       <footer className="border-top py-4">
         <div className="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
           <div className="d-flex align-items-center gap-2">
-            <span className="fs-6 fw-bold">GymFlex</span>
+            <span className="fs-6 fw-bold">FunctionFit()</span>
           </div>
           <p className="text-muted small text-center mb-0">
-            © 2024 GymFlex. Todos los derechos reservados.
+            © 2025 FunctionFit(). Todos los derechos reservados.
           </p>
           <div className="d-flex gap-3">
             <Link
