@@ -56,9 +56,18 @@ const Home = () => {
             <div className="row g-4">
               {prices.prices.map((plan, index) => (
                 <div key={index} className="col-md-4">
+                  {plan.highlighted && (
+                    <div className="bg-primary text-white text-center rounded-top py-2 ">
+                      <p className=" fw-bolder m-0 py-1 text-uppercase">
+                        Más vendido
+                      </p>
+                    </div>
+                  )}
                   <div
                     className={`card border rounded p-4 ${
-                      plan.highlighted ? 'border-primary bg-light shadow' : ''
+                      plan.highlighted
+                        ? 'border-primary bg-light shadow rounded-top-0'
+                        : ''
                     }`}
                   >
                     <h3 className="card-title h4 fw-bold">{plan.title}</h3>
