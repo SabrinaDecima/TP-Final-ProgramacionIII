@@ -61,6 +61,37 @@ A continuación se describe la estructura general del proyecto y la función de 
 
 ---
 
+TP-FINAL/
+├── public/
+│ ├── index.html
+│ └── ...
+├── src/
+│ ├── assets/
+│ ├── components/
+│ │ ├── Header.jsx
+│ │ ├── Footer.jsx
+│ │ └── Sidebar.jsx
+│ ├── layouts/
+│ │ ├── PublicLayout.jsx
+│ │ └── ProtectedLayout.jsx
+│ ├── pages/
+│ │ ├── Public/
+│ │ │ ├── Home.jsx
+│ │ │ ├── Login.jsx
+│ │ │ └── Register.jsx
+│ │ └── Private/
+│ │ ├── Dashboard.jsx
+│ │ ├── Profile.jsx
+│ │ └── Members.jsx
+│ ├── routes/
+│ │ ├── Protected.jsx
+│ │ └── index.js
+│ ├── utils/
+│ │ └── auth.js
+│ ├── App.jsx
+│ └── index.jsx
+└── package.json
+
 ## 📁 Descripción de Carpetas
 
 ### `public/`
