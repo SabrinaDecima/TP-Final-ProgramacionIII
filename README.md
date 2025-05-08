@@ -61,36 +61,38 @@ A continuación se describe la estructura general del proyecto y la función de 
 
 ---
 
+```text
 TP-FINAL/
 ├── public/
-│ ├── index.html
-│ └── ...
+│   ├── index.html
+│   └── ...
 ├── src/
-│ ├── assets/
-│ ├── components/
-│ │ ├── Header.jsx
-│ │ ├── Footer.jsx
-│ │ └── Sidebar.jsx
-│ ├── layouts/
-│ │ ├── PublicLayout.jsx
-│ │ └── ProtectedLayout.jsx
-│ ├── pages/
-│ │ ├── Public/
-│ │ │ ├── Home.jsx
-│ │ │ ├── Login.jsx
-│ │ │ └── Register.jsx
-│ │ └── Private/
-│ │ ├── Dashboard.jsx
-│ │ ├── Profile.jsx
-│ │ └── Members.jsx
-│ ├── routes/
-│ │ ├── Protected.jsx
-│ │ └── index.js
-│ ├── utils/
-│ │ └── auth.js
-│ ├── App.jsx
-│ └── index.jsx
+│   ├── assets/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   └── Sidebar.jsx
+│   ├── layouts/
+│   │   ├── PublicLayout.jsx
+│   │   └── ProtectedLayout.jsx
+│   ├── pages/
+│   │   ├── Public/
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   └── Register.jsx
+│   │   └── Private/
+│   │       ├── Dashboard.jsx
+│   │       ├── Profile.jsx
+│   │       └── Members.jsx
+│   ├── routes/
+│   │   ├── Protected.jsx
+│   │   └── index.js
+│   ├── utils/
+│   │   └── auth.js
+│   ├── App.jsx
+│   └── index.jsx
 └── package.json
+
 
 ## 📁 Descripción de Carpetas
 
@@ -132,14 +134,14 @@ TP-FINAL/
 
 - Aquí residen todas las páginas de la aplicación, divididas en públicas y privadas.
 
-**Public/**  
+**Public/**
 Páginas accesibles sin iniciar sesión:
 
 - `Home.jsx`: Página de inicio.
 - `Login.jsx`: Formulario de inicio de sesión.
 - `Register.jsx`: Formulario de registro.
 
-**Private/**  
+**Private/**
 Páginas protegidas (requieren autenticación):
 
 - `Dashboard.jsx`: Panel principal del usuario.
@@ -150,7 +152,7 @@ Páginas protegidas (requieren autenticación):
 
 - Configuración de rutas de la aplicación.
 
-- `Protected.jsx`: Componente de protección de rutas. Solo permite el acceso a usuarios autenticados.  
+- `Protected.jsx`: Componente de protección de rutas. Solo permite el acceso a usuarios autenticados.
   Se usa como middleware en **react-router-dom**.
 
 - `index.js`: Archivo principal de rutas. Aquí se define la estructura de navegación usando **react-router-dom**.
@@ -165,12 +167,12 @@ Páginas protegidas (requieren autenticación):
 
 ### `App.jsx`
 
-- Componente raíz de la aplicación.  
+- Componente raíz de la aplicación.
   Aquí se importan y organizan los componentes principales y las rutas.
 
 ### `index.jsx`
 
-- Punto de entrada de la aplicación.  
+- Punto de entrada de la aplicación.
   Renderiza el componente **App** dentro del DOM.
 
 ---
@@ -234,3 +236,4 @@ La estructura actual permite fácil escalabilidad:
 - Agregar nuevos roles (ej. `moderator`).
 - Crear nuevas páginas y layouts.
 - Implementar módulos adicionales (ej. gestión de usuarios, historial, notificaciones).
+```
