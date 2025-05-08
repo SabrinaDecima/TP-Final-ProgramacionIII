@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router";
-import { Link } from "react-router";
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import {
   Container,
   Button,
@@ -8,29 +8,30 @@ import {
   Col,
   Form,
   FormGroup,
-  Row
-} from "react-bootstrap";
-import {successToast} from "../../../utils/notification"
+  Row,
+} from 'react-bootstrap';
+import { successToast, errorToast } from '../../../utils/notification';
+import { HouseDoorFill, HouseExclamationFill } from 'react-bootstrap-icons';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({
     email: false,
     password: false,
   });
 
   const handleLogin = (role) => {
-    if (role === "admin") {
+    if (role === 'admin') {
       // Redirije dashboard de Admin
-      onLogin("admin");
-    } else if (role === "superadmin") {
+      onLogin('admin');
+    } else if (role === 'superadmin') {
       // Redirije dashboard de Superadmin
-      onLogin("superadmin");
+      onLogin('superadmin');
     } else {
       // Redirije dashboard de Socio
-      onLogin("socio");
+      onLogin('socio');
     }
   };
 
@@ -57,7 +58,7 @@ const Login = ({ onLogin }) => {
     event.preventDefault();
 
     if (!email.length) {
-      showToast("¡El email está vacío!");
+      errorToast('¡El correo electrónico está vacío!');
       emailRef.current.focus();
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -67,7 +68,7 @@ const Login = ({ onLogin }) => {
     }
 
     if (!passwordRef.current.value.length) {
-      showToast("¡El password está vacío!");
+      errorToast('¡El constraseña está vacío!');
       passwordRef.current.focus();
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -78,7 +79,11 @@ const Login = ({ onLogin }) => {
     // const role = "socio";
     successToast(`Sesión iniciada con éxito para: ${email}`);
     onLogin();
-    navigate("/home");
+    navigate('/dashboard');
+  };
+
+  const goBackLoginHandler = () => {
+    navigate('/home');
   };
 
   return (
@@ -87,6 +92,11 @@ const Login = ({ onLogin }) => {
         fluid
         className="vh-100 d-flex justify-content-center align-items-center"
       >
+        <Row className=" position-absolute top-0 end-0 m-5">
+          <Button onClick={goBackLoginHandler}>
+            <HouseDoorFill size={25} className="m-1" />
+          </Button>
+        </Row>
         <Row className="w-100 justify-content-center">
           <Col xs={12} sm={10} md={6} lg={4}>
             <Card className="p-4 shadow">
@@ -97,9 +107,9 @@ const Login = ({ onLogin }) => {
                 <Form onSubmit={handleSubmit}>
                   <FormGroup className="mb-4">
                     <Form.Control
-                      type="text"
+                      type="email"
                       className={`input-email ${
-                        errors.email ? "border border-danger" : ""
+                        errors.email ? 'border border-danger' : ''
                       }`}
                       placeholder="Ingresar email"
                       onChange={handleEmailChange}
@@ -127,7 +137,7 @@ const Login = ({ onLogin }) => {
                     )}
                   </FormGroup>
                   <div className="d-flex justify-content-center">
-                    <Button variant="secondary" type="submit">
+                    <Button variant="primary" type="submit">
                       Iniciar sesión
                     </Button>
                   </div>
@@ -155,7 +165,6 @@ const Login = ({ onLogin }) => {
           </Col>
         </Row>
       </Container>
-
     </>
   );
 };
