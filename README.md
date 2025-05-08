@@ -92,7 +92,7 @@ TP-FINAL/
 │   ├── App.jsx
 │   └── index.jsx
 └── package.json
-
+```
 
 ## 📁 Descripción de Carpetas
 
@@ -236,4 +236,7 @@ La estructura actual permite fácil escalabilidad:
 - Agregar nuevos roles (ej. `moderator`).
 - Crear nuevas páginas y layouts.
 - Implementar módulos adicionales (ej. gestión de usuarios, historial, notificaciones).
+
+```
+
 ```
