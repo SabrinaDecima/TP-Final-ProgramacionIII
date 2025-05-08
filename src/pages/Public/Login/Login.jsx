@@ -10,7 +10,7 @@ import {
   FormGroup,
   Row,
 } from 'react-bootstrap';
-import { successToast } from '../../../utils/notification';
+import { successToast, errorToast } from '../../../utils/notification';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const Login = ({ onLogin }) => {
     event.preventDefault();
 
     if (!email.length) {
-      showToast('¡El email está vacío!');
+      errorToast('¡El correo electrónico está vacío!');
       emailRef.current.focus();
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -67,7 +67,7 @@ const Login = ({ onLogin }) => {
     }
 
     if (!passwordRef.current.value.length) {
-      showToast('¡El password está vacío!');
+      errorToast('¡El constraseña está vacío!');
       passwordRef.current.focus();
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -97,7 +97,7 @@ const Login = ({ onLogin }) => {
                 <Form onSubmit={handleSubmit}>
                   <FormGroup className="mb-4">
                     <Form.Control
-                      type="text"
+                      type="email"
                       className={`input-email ${
                         errors.email ? 'border border-danger' : ''
                       }`}
