@@ -17,6 +17,7 @@ import Dashboard from './pages/Private/Dashboard/Dashboard';
 import NotFound from './pages/NotFound';
 import Protected from './routes/Protected';
 
+
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -38,7 +39,7 @@ const App = () => {
           <Route path="login" element={<Login onLogin={handleSignIn} />} />
           <Route element={<Protected isSignedIn={isSignedIn} />}>
             <Route
-              path="/dashboard/*"
+              path="/gimnasio/*"
               element={<Dashboard onLogout={handleLogout} />}
             />
           </Route>

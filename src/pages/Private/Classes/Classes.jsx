@@ -1,6 +1,7 @@
-import { Card, Button, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import ClassItem from '../classItem/ClassItem';
 
-const GymClasses = ({ clases }) => {
+const Classes = ({ clases }) => {
   console.log(clases);
   return (
     <div className="mt-4">
@@ -8,23 +9,7 @@ const GymClasses = ({ clases }) => {
       <Row>
         {clases.map((clase) => (
           <Col key={clase.id} md={4} className="mb-4">
-            <Card>
-              <Card.Img
-                variant="top"
-                src={clase.imageUrl}
-                alt={clase.name}
-                style={{ height: '200px', objectFit: 'cover' }}
-              />
-              <Card.Body>
-                <Card.Title>{clase.name}</Card.Title>
-                <Card.Text>
-                  <strong>Instructor:</strong> {clase.instructor}
-                  <br />
-                  <strong>Duración:</strong> {clase.durationMinutes} minutos
-                </Card.Text>
-                <Button variant="primary">Solicitar turno</Button>
-              </Card.Body>
-            </Card>
+            <ClassItem clase={clase}/>
           </Col>
         ))}
       </Row>
@@ -32,4 +17,4 @@ const GymClasses = ({ clases }) => {
   );
 };
 
-export default GymClasses;
+export default Classes;

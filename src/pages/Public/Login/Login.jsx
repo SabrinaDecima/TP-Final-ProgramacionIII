@@ -79,7 +79,7 @@ const Login = ({ onLogin }) => {
     // const role = "socio";
     successToast(`Sesión iniciada con éxito para: ${email}`);
     onLogin();
-    navigate('/dashboard');
+    navigate('/gimnasio');
   };
 
   const goBackLoginHandler = () => {

@@ -1,13 +1,36 @@
 import { useEffect, useState } from 'react';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { Routes, Route, useLocation, useNavigate } from 'react-router';
 
-import GymClasses from '../Classes/Classes';
+import Classes from '../Classes/Classes';
+import CardWidget from '../../../components/CardWidget';
 
 // los button mas abajo, deben ser replazados por por ejemplo una imagen
 const Dashboard = ({ role, onLogout }) => {
   const [clases, setClases] = useState([]);
   const location = useLocation();
+
+  const cardData = [
+    {
+      title: 'Reserva tu turno',
+      text: 'Accede a la sección de clases disponibles',
+      buttonName: 'Reservar',
+    },
+    {
+      title: 'Ver historial',
+      text: 'Consulta tu historial de clases',
+      buttonName: 'Historial',
+    },
+    {
+      title: 'Pagar cuota mensual',
+      text: 'Realiza el pago de tu cuota mensual',
+      buttonName: 'Pagar',
+    },
+  ];
+
+  const handleRoute = (page) => {
+    navigate(`/gimnasio/${page}`)
+  }
 
   useEffect(() => {
     if (location.pathname === '/dashboard')
@@ -66,18 +89,29 @@ const Dashboard = ({ role, onLogout }) => {
 
     //   <Button onClick={onLogout}>Cerrar sesión</Button>
     // </Container>
-    <>
-      <h2>Bienvenido al Dashboard</h2>{' '}
-      <Row className="w-100 my-3">
+    <Container fluid>
+      
+      <Row>
         <Col />
         <Col md={3} className="d-flex justify-content-end ">
           <Button onClick={onLogout}>Cerrar sesión</Button>
         </Col>
       </Row>
-      <Routes>
-        <Route index element={<GymClasses clases={clases} />} />
-      </Routes>
-    </>
+      <Row className='my-3 '>
+      <h2>Bienvenido al Dashboard</h2>
+      </Row>
+      <Row className='my-3'>
+        <div className="d-flex gap-3 width-100 justify-content-center align-items-center">
+          {cardData.map((card, index) => (
+            <Col key={index}>
+            <CardWidget card={card} onRoute={handleRoute}/>
+            </Col>
+          ))}
+        </div>
+      </Row>
+    </Container>
+
+
   );
 };
 
