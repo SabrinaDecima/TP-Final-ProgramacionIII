@@ -15,22 +15,25 @@ const Dashboard = ({ role, onLogout }) => {
       title: 'Reserva tu turno',
       text: 'Accede a la sección de clases disponibles',
       buttonName: 'Reservar',
+      pathname: 'clases',
     },
     {
       title: 'Ver historial',
       text: 'Consulta tu historial de clases',
       buttonName: 'Historial',
+      pathname: 'historial',
     },
     {
       title: 'Pagar cuota mensual',
       text: 'Realiza el pago de tu cuota mensual',
       buttonName: 'Pagar',
+      pathname: 'pagos',
     },
   ];
 
   const handleRoute = (page) => {
-    navigate(`/gimnasio/${page}`)
-  }
+    navigate(`/gimnasio/${page}`);
+  };
 
   useEffect(() => {
     if (location.pathname === '/dashboard')
@@ -90,28 +93,25 @@ const Dashboard = ({ role, onLogout }) => {
     //   <Button onClick={onLogout}>Cerrar sesión</Button>
     // </Container>
     <Container fluid>
-      
       <Row>
         <Col />
         <Col md={3} className="d-flex justify-content-end ">
           <Button onClick={onLogout}>Cerrar sesión</Button>
         </Col>
       </Row>
-      <Row className='my-3 '>
-      <h2>Bienvenido al Dashboard</h2>
+      <Row className="my-3 ">
+        <h2>Bienvenido al Dashboard</h2>
       </Row>
-      <Row className='my-3'>
+      <Row className="my-3">
         <div className="d-flex gap-3 width-100 justify-content-center align-items-center">
           {cardData.map((card, index) => (
             <Col key={index}>
-            <CardWidget card={card} onRoute={handleRoute}/>
+              <CardWidget card={card} onRoute={handleRoute} />
             </Col>
           ))}
         </div>
       </Row>
     </Container>
-
-
   );
 };
 

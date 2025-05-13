@@ -1,20 +1,19 @@
-import { Button, Card } from "react-bootstrap"
+import { Button, Card } from 'react-bootstrap';
 
-
-const CardWidget = ({card}) => {
+const CardWidget = ({ card, onRoute }) => {
   return (
     <Card>
-        <Card.Body className="d-flex flex-column justify-content-center align-items-center">
-            <Card.Title>
-                <h2>{card.title}</h2>
-            </Card.Title>
-            <Card.Text>
-                {card.text}
-            </Card.Text>
-            <Button>{card.buttonName}</Button>
-        </Card.Body>
-    </Card>  
-)
-}
+      <Card.Body className="d-flex flex-column justify-content-center align-items-center">
+        <Card.Title>
+          <h2>{card.title}</h2>
+        </Card.Title>
+        <Card.Text>{card.text}</Card.Text>
+        <Button onClick={() => onRoute(card.pathname)}>
+          {card.buttonName}
+        </Button>
+      </Card.Body>
+    </Card>
+  );
+};
 
-export default CardWidget
+export default CardWidget;
