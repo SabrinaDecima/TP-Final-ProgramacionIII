@@ -1,6 +1,7 @@
 // Imports de react
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import Header from './components/Header';
 // Librerias externas
 
 // Helpers
@@ -32,6 +33,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
+      <Header></Header>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="home" />} />
