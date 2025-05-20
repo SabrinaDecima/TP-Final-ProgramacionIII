@@ -102,12 +102,12 @@ const Dashboard = ({ role, onLogout }) => {
       <Row className="my-3 ">
         <h2>Bienvenido al Dashboard</h2>
       </Row>
-      <Row className="my-3">
-        <div className="d-flex gap-3 width-100 justify-content-center align-items-center">
+      <Row className="my-3 mx-5">
+        <div className="d-flex flex-column flex-md-row flex-wrap justify-content-evenly  align-items-center gap-5">
           {cardData.map((card, index) => (
-            <Col key={index}>
+            <div key={index}>
               <CardWidget card={card} onRoute={handleRoute} />
-            </Col>
+            </div>
           ))}
         </div>
       </Row>
