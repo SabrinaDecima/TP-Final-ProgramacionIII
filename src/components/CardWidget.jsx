@@ -2,7 +2,7 @@ import { Button, Card } from 'react-bootstrap';
 
 const CardWidget = ({ card, onRoute }) => {
   return (
-    <Card>
+    <Card className="text-center" style={{ width: '20rem', height: '20rem' }}>
       <Card.Body className="d-flex flex-column justify-content-center align-items-center">
         <Card.Title>
           <h2>{card.title}</h2>

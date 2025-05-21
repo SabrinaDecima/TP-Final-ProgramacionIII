@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Button, Container, Row, Col, Card } from 'react-bootstrap';
+import { Button, Container, Row, Col, Card, Navbar } from 'react-bootstrap';
 import { Routes, Route, useLocation, useNavigate } from 'react-router';
 
 import Classes from '../Classes/Classes';
 import CardWidget from '../../../components/CardWidget';
+import Sidebar from '../../../components/Sidebar';
+import Layout from '../../../components/Layout';
 
 // los button mas abajo, deben ser replazados por por ejemplo una imagen
 const Dashboard = ({ role, onLogout }) => {
@@ -36,6 +38,7 @@ const Dashboard = ({ role, onLogout }) => {
   };
 
   useEffect(() => {
+    //TODO: consultar if
     if (location.pathname === '/dashboard')
       fetch('http://localhost:3000/clases')
         .then((res) => res.json())
@@ -92,26 +95,17 @@ const Dashboard = ({ role, onLogout }) => {
 
     //   <Button onClick={onLogout}>Cerrar sesión</Button>
     // </Container>
-    <Container fluid>
-      <Row>
-        <Col />
-        <Col md={3} className="d-flex justify-content-end ">
-          <Button onClick={onLogout}>Cerrar sesión</Button>
-        </Col>
-      </Row>
-      <Row className="my-3 ">
-        <h2>Bienvenido al Dashboard</h2>
-      </Row>
-      <Row className="my-3">
-        <div className="d-flex gap-3 width-100 justify-content-center align-items-center">
+    <>
+      <Row className="my-3 mx-5">
+        <div className="d-flex flex-column flex-md-row flex-wrap justify-content-evenly  align-items-center gap-5">
           {cardData.map((card, index) => (
-            <Col key={index}>
+            <div key={index}>
               <CardWidget card={card} onRoute={handleRoute} />
-            </Col>
+            </div>
           ))}
         </div>
       </Row>
-    </Container>
+    </>
   );
 };
 
