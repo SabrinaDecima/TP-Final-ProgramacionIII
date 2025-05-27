@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
-const Header = ({ userEmail = 'usuario@gmail.com' }) => {
+const Header = ({ userEmail = 'usuario@gmail.com', handleLogout }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const onLogout = () => {
+    if (handleLogout) handleLogout();
+  };
 
   return (
     <header className="w-100 shadow-sm py-2 position-relative position-fixed top-0 start-0">
@@ -18,7 +22,7 @@ const Header = ({ userEmail = 'usuario@gmail.com' }) => {
               className="avatar rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-xl"
               aria-label="Avatar del usuario"
             >
-              U
+              {userEmail.charAt(0).toUpperCase()}
             </div>
             {/* Email (visible en md+) */}
             <span className=" text-white mb-0 me-3 small d-none d-md-block">
@@ -36,7 +40,11 @@ const Header = ({ userEmail = 'usuario@gmail.com' }) => {
                 Ver perfil
               </a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item text-danger" href="/logout">
+              <a
+                className="dropdown-item text-danger"
+                onClick={onLogout}
+                style={{ cursor: 'pointer' }}
+              >
                 Cerrar sesión
               </a>
             </div>

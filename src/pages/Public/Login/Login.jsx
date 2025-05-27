@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 import { successToast, errorToast } from '../../../utils/notification';
 import { HouseDoorFill, HouseExclamationFill } from 'react-bootstrap-icons';
+import { toast } from 'react-toastify';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -22,16 +23,31 @@ const Login = ({ onLogin }) => {
     password: false,
   });
 
-  const handleLogin = (role) => {
-    if (role === 'admin') {
-      // Redirije dashboard de Admin
-      onLogin('admin');
-    } else if (role === 'superadmin') {
-      // Redirije dashboard de Superadmin
-      onLogin('superadmin');
-    } else {
-      // Redirije dashboard de Socio
-      onLogin('socio');
+  const handleLoginSuccess = () => {
+    onLogin();
+    navigate('/gimnasio');
+  };
+
+  const fetchUser = async (email, password) => {
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al iniciar sesión');
+      }
+
+      const data = await response.json();
+      localStorage.setItem('accessToken', data.accessToken);
+      handleLoginSuccess();
+    } catch (error) {
+      toast.error(error.message || 'Error al iniciar sesión');
+      console.log(error);
     }
   };
 
@@ -76,10 +92,7 @@ const Login = ({ onLogin }) => {
       }));
       return;
     }
-    // const role = "socio";
-    successToast(`Sesión iniciada con éxito para: ${email}`);
-    onLogin();
-    navigate('/gimnasio');
+    fetchUser(email, password);
   };
 
   const goBackLoginHandler = () => {
