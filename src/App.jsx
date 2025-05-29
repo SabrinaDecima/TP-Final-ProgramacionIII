@@ -79,9 +79,11 @@ const App = () => {
           <Route element={<Protected role={role} isSignedIn={isSignedIn} />}>
             <Route
               path="/gimnasio/*"
-              element={<Layout onLogout={handleLogout} userEmail={email} />}
+              element={
+                <Layout onLogout={handleLogout} userEmail={email} role={role} />
+              }
             >
-              <Route index element={<Dashboard />} />
+              <Route index element={<Dashboard role={role} />} />
               <Route path="clases" element={<Classes />} />
               <Route path="pagos" element={<Profile />} />
               <Route path="historial" element={<Historical />} />
