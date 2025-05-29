@@ -51,7 +51,12 @@ header {
 }
 
 .sidebar .nav-link:hover {
-  color: var(--color-secondary-hover);
+  color: white;
+}
+
+.sidebar .nav-link:focus {
+  background: rgba(255, 255, 255, 0.404);
+  border-radius: 0.75rem;
 }
 
 footer {
