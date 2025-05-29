@@ -58,6 +58,8 @@ A continuación se describe la estructura general del proyecto y la función de 
 - [📦 Assets](#-assets)
 - [🛠️ Utils](#-utils)
 - [🧪 Escalabilidad Futura](#-escalabilidad-futura)
+- [🖥️ Dashboards por Rol](#-dashboards-por-rol)
+- [🧭 Sidebar con Enlace Activo](#-sidebar-con-enlace-activo)
 
 ---
 
@@ -153,7 +155,7 @@ Páginas protegidas (requieren autenticación):
 - Configuración de rutas de la aplicación.
 
 - `Protected.jsx`: Componente de protección de rutas. Solo permite el acceso a usuarios autenticados.
-  Se usa como middleware en **react-router-dom**.
+  Se usa como middleware en **react-router**.
 
 - `index.js`: Archivo principal de rutas. Aquí se define la estructura de navegación usando **react-router-dom**.
 
@@ -237,6 +239,58 @@ La estructura actual permite fácil escalabilidad:
 - Crear nuevas páginas y layouts.
 - Implementar módulos adicionales (ej. gestión de usuarios, historial, notificaciones).
 
-```
+---
+
+## 🖥️ Dashboards por Rol
+
+El sistema de dashboards ahora permite mostrar un panel diferente según el rol del usuario. Esto se logra con un único componente `Dashboard.jsx` que recibe la prop `role` y, según su valor, renderiza el contenido correspondiente:
+
+- `MemberDashboardContent.jsx`: Panel para socios.
+- `AdminDashboardContent.jsx`: Panel para administradores.
+- `SuperAdminDashboardContent.jsx`: Panel para superadministradores.
+
+Todos estos archivos se encuentran en:
 
 ```
+src/pages/Private/Dashboard/
+```
+
+El componente principal decide qué contenido mostrar según el rol:
+
+```jsx
+const Dashboard = ({ role }) => (
+  <div>
+    {role === 'member' && <MemberDashboardContent />}
+    {role === 'admin' && <AdminDashboardContent />}
+    {role === 'superadmin' && <SuperAdminDashboardContent />}
+  </div>
+);
+```
+
+En `App.jsx`, se pasa la prop `role` al dashboard:
+
+```jsx
+<Route index element={<Dashboard role={role} />} />
+```
+
+---
+
+## 🧭 Sidebar con Enlace Activo
+
+El componente `Sidebar.jsx` ahora utiliza `NavLink` de `react-router` para resaltar el enlace activo con un fondo diferente. Esto mejora la experiencia de navegación, mostrando visualmente en qué sección se encuentra el usuario.
+
+Ejemplo de uso:
+
+```jsx
+<NavLink
+  to="/gimnasio"
+  className={({ isActive }) => 'nav-link' + (isActive ? ' bg-light' : '')}
+  style={({ isActive }) => (isActive ? { backgroundColor: '#fff' } : {})}
+>
+  Dashboard
+</NavLink>
+```
+
+Esto aplica un fondo blanco al enlace activo. Puedes personalizar el color en el archivo `Sidebar.jsx`.
+
+---
