@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Container, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { HouseDoorFill } from 'react-bootstrap-icons';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -23,33 +26,61 @@ const ForgotPassword = () => {
         body: JSON.stringify({ email }),
       });
 
-      toast.success('Se ha enviado un correo con instrucciones para restablecer tu contraseña.');
+      toast.success(
+        'Se ha enviado un correo con instrucciones para restablecer tu contraseña.'
+      );
       setLoading(false);
-    } catch (error) {
-      setError('Hubo un error al enviar el correo. Inténtalo de nuevo más tarde.');
+    } catch (err) {
+      setError(
+        'Hubo un error al enviar el correo. Inténtalo de nuevo más tarde.'
+      );
       setLoading(false);
     }
   };
 
+  const goBackHome = () => navigate('/home');
+
   return (
-    <Container className="vh-100 d-flex justify-content-center align-items-center">
+    <Container
+      fluid
+      className="vh-100 d-flex justify-content-center align-items-center bg-dark position-relative"
+    >
+      
+      <Button
+        variant="primary"
+        onClick={goBackHome}
+        className="position-absolute top-0 end-0 m-4"
+        aria-label="Volver al inicio"
+      >
+        <HouseDoorFill size={25} />
+      </Button>
+
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={6} lg={4}>
-          <div className="p-4 shadow-sm rounded-3 border-0 bg-white">
-            <h2 className="text-center mb-4">Olvidaste tu contraseña?</h2>
+          <div
+            className="p-4 shadow rounded-3 border border-primary"
+            style={{
+              backgroundColor: '#1e293b',
+              color: 'white',
+            }}
+          >
+            <h5 className="text-center mb-4">Olvidaste tu contraseña?</h5>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3">
+              <Form.Group className="mb-4">
                 <Form.Control
                   type="email"
                   placeholder="Ingresar email"
                   value={email}
                   onChange={handleChange}
                   required
+                  className="bg-transparent text-white"
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" disabled={loading}>
-                {loading ? 'Enviando...' : 'Enviar correo de restablecimiento'}
-              </Button>
+              <div className="d-grid">
+                <Button variant="primary" type="submit" disabled={loading}>
+                  {loading ? 'Enviando...' : 'Enviar correo'}
+                </Button>
+              </div>
             </Form>
             {error && (
               <div className="alert alert-danger mt-3">{error}</div>

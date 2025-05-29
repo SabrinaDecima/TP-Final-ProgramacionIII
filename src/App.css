@@ -58,3 +58,45 @@ footer {
   background-color: var(--color-primary);
   z-index: 1000;
 }
+
+
+/* Estilo general */
+body {
+  background-color: #E8F5E9; /* Verde claro */
+}
+
+/* Campos de entrada */
+.form-control {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Iconos */
+svg {
+  color: #007BFF; /* Azul */
+  margin-right: 10px;
+}
+
+/* Errores */
+.border-danger {
+  border-color: #DC3545 !important; /* Rojo */
+}
+
+/* Énfasis en campos correctos */
+.border-primary {
+  border-color: #007BFF !important; /* Azul */
+}
+
+/* Botón de Registro */
+button[type="submit"] {
+  background-color: #007BFF; /* Azul */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3; /* Azul oscuro */
+}
