@@ -1,18 +1,38 @@
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router';
-import {Container, Button, Card, Col, Form, FormGroup, Row, } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {
+  Container,
+  Button,
+  Card,
+  Col,
+  Form,
+  FormGroup,
+  Row,
+} from 'react-bootstrap';
 import { HouseDoorFill } from 'react-bootstrap-icons';
 import { toast } from 'react-toastify';
 
+// Tus planes disponibles
+const availablePlans = [
+  { title: 'Básico', price: '$250000' },
+  { title: 'Premium', price: '$50000' },
+  { title: 'Elite', price: '$100000' }
+];
+
 const Register = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const selectedPlanFromURL = searchParams.get('plan');
+
   const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
   });
 
+  const [plan, setPlan] = useState(selectedPlanFromURL || '');
   const [errors, setErrors] = useState({});
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -42,7 +62,6 @@ const Register = () => {
       return;
     }
 
-    // Validación de formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast.error('Formato de email inválido');
@@ -65,11 +84,16 @@ const Register = () => {
       return;
     }
 
+    if (!plan) {
+      toast.error('Por favor selecciona un plan.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/api/registro', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, plan }),
       });
 
       if (!response.ok) {
@@ -102,6 +126,20 @@ const Register = () => {
               <Row className="mb-3">
                 <h5 className="text-center">Registrarse</h5>
               </Row>
+
+              {/* Selección de plan */}
+              <FormGroup className="mb-3">
+                <Form.Label>Selecciona un Plan</Form.Label>
+                <Form.Select name="plan" value={plan} onChange={(e) => setPlan(e.target.value)} required>
+                  <option value="">-- Selecciona un plan --</option>
+                  {availablePlans.map((p, idx) => (
+                    <option key={idx} value={p.title.toLowerCase()}>
+                      {p.title} - {p.price}
+                    </option>
+                  ))}
+                </Form.Select>
+              </FormGroup>
+
               <Form onSubmit={handleSubmit}>
                 <FormGroup className="mb-3">
                   <Form.Control
