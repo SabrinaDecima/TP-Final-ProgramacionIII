@@ -7,7 +7,7 @@ const Protected = ({ isSignedIn, role }) => {
   }
 
   // Validando el acceso por rol
-  if (role === 'socio' || role === 'admin' || role === 'superadmin') {
+  if (role === 'member' || role === 'admin' || role === 'superadmin') {
     return (
       <>
         <Outlet />
