@@ -13,6 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 import './App.css';
 
 import Login from './pages/Public/Login/Login';
+import Register from './pages/Public/Register/Register';
 import Home from './pages/Public/Home/Home';
 import Dashboard from './pages/Private/Dashboard/Dashboard';
 import NotFound from './pages/NotFound';
@@ -81,6 +82,7 @@ const App = () => {
           <Route path="/" element={<Navigate to="home" />} />
           <Route path="home" element={<Home onLogin={handleSignIn} />} />
           <Route path="login" element={<Login onLogin={handleSignIn} />} />
+          <Route path="registro" element={<Register />} />
           <Route element={<Protected role={role} isSignedIn={isSignedIn} />}>
             <Route
               path="/gimnasio/*"

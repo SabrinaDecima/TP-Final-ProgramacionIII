@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import prices from '../../../data/prices.json';
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
                 Iniciar Sesión
               </Button>
             </Link>
-            <Link to="/register">
+            <Link to="/registro">
               <Button>Registrarse</Button>
             </Link>
           </div>
