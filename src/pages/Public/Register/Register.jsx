@@ -116,11 +116,18 @@ const Register = () => {
       fluid
       className="vh-100 d-flex justify-content-center align-items-center bg-light"
     >
-      <Row className="position-absolute top-0 end-0 m-4">
-        <Button variant="outline-primary" onClick={goBackHome}>
-          <HouseDoorFill size={25} className="m-1" />
+      <div
+        style={{
+          position: 'absolute',
+          top: '20px',
+          right: '20px',
+          zIndex: 1000,
+        }}
+      >
+        <Button variant="primary" onClick={goBackHome}>
+          <HouseDoorFill size={25} className="m-1 text-white" />
         </Button>
-      </Row>
+      </div>
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={6} lg={4}>
           <Card className="p-4 shadow-sm rounded-3 border-0">
@@ -197,7 +204,7 @@ const Register = () => {
                     ¿Ya tienes cuenta?{' '}
                     <Link
                       to="/login"
-                      className="text-decoration-none text-success fw-bold"
+                      className="text-decoration-none text-primary fw-bold"
                     >
                       Iniciar sesión
                     </Link>
