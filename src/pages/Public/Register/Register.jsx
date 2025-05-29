@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
+import { Link } from 'react-router';
 import {
   Container,
   Button,
@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 const availablePlans = [
   { title: 'Básico', price: '$250000' },
   { title: 'Premium', price: '$50000' },
-  { title: 'Elite', price: '$100000' }
+  { title: 'Elite', price: '$100000' },
 ];
 
 const Register = () => {
@@ -112,7 +112,10 @@ const Register = () => {
   const goBackHome = () => navigate('/home');
 
   return (
-    <Container fluid className="vh-100 d-flex justify-content-center align-items-center bg-light">
+    <Container
+      fluid
+      className="vh-100 d-flex justify-content-center align-items-center bg-light"
+    >
       <Row className="position-absolute top-0 end-0 m-4">
         <Button variant="outline-primary" onClick={goBackHome}>
           <HouseDoorFill size={25} className="m-1" />
@@ -126,10 +129,14 @@ const Register = () => {
                 <h5 className="text-center">Registrarse</h5>
               </Row>
 
-              
               <FormGroup className="mb-3">
                 <Form.Label>Selecciona un Plan</Form.Label>
-                <Form.Select name="plan" value={plan} onChange={(e) => setPlan(e.target.value)} required>
+                <Form.Select
+                  name="plan"
+                  value={plan}
+                  onChange={(e) => setPlan(e.target.value)}
+                  required
+                >
                   <option value="">-- Selecciona un plan --</option>
                   {availablePlans.map((p, idx) => (
                     <option key={idx} value={p.title.toLowerCase()}>
@@ -177,14 +184,21 @@ const Register = () => {
                   />
                 </FormGroup>
                 <div className="d-grid">
-                  <Button variant="success" type="submit" className="py-2 fw-bold">
+                  <Button
+                    variant="success"
+                    type="submit"
+                    className="py-2 fw-bold"
+                  >
                     Registrarse
                   </Button>
                 </div>
                 <Row className="mt-3">
                   <Col className="text-center">
                     ¿Ya tienes cuenta?{' '}
-                    <Link to="/login" className="text-decoration-none text-success fw-bold">
+                    <Link
+                      to="/login"
+                      className="text-decoration-none text-success fw-bold"
+                    >
                       Iniciar sesión
                     </Link>
                   </Col>
