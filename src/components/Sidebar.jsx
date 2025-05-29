@@ -47,7 +47,7 @@ const Sidebar = ({ role }) => {
               </Link>
             </Nav>
           )}
-          {role === 'superAdmin' && (
+          {role === 'superadmin' && (
             <Nav className="w-100 d-flex flex-column flex-start mx-2 fw-bold">
               <Link to="/gimnasio" className="nav-link">
                 Menu
