@@ -1,15 +1,9 @@
-// Imports de react
+
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
-// Librerias externas
 import { ToastContainer } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
 
-// Helpers
-
-// Componentes
-
-// Estilos
 import './App.css';
 
 import Login from './pages/Public/Login/Login';
@@ -22,13 +16,14 @@ import Classes from './pages/Private/Classes/Classes';
 import Profile from './pages/Private/Profile/Profile';
 import Historical from './pages/Private/Historical/Historical';
 import Layout from './components/Layout';
+import ForgotPassword from './pages/Public/ForgotPassword/ForgotPassword';
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [role, setRole] = useState(null);
   const [email, setEmail] = useState('');
 
-  // Sincroniza el estado global con el accessToken
+ 
   const syncAuthState = () => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
@@ -51,7 +46,6 @@ const App = () => {
     }
   };
 
-  // Efecto que escucha cambios en el accessToken
   useEffect(() => {
     syncAuthState();
     const onStorage = (e) => {
@@ -61,12 +55,10 @@ const App = () => {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  // Login: fuerza actualización del estado global
   const handleSignIn = () => {
     syncAuthState();
   };
 
-  // Logout: limpia todo
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     setIsSignedIn(false);
@@ -82,6 +74,7 @@ const App = () => {
           <Route path="/" element={<Navigate to="home" />} />
           <Route path="home" element={<Home onLogin={handleSignIn} />} />
           <Route path="login" element={<Login onLogin={handleSignIn} />} />
+          <Route path="/recuperar" element={<ForgotPassword />} />
           <Route path="registro" element={<Register />} />
           <Route element={<Protected role={role} isSignedIn={isSignedIn} />}>
             <Route

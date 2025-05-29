@@ -13,7 +13,6 @@ import {
 import { HouseDoorFill } from 'react-bootstrap-icons';
 import { toast } from 'react-toastify';
 
-// Tus planes disponibles
 const availablePlans = [
   { title: 'Básico', price: '$250000' },
   { title: 'Premium', price: '$50000' },
@@ -127,7 +126,7 @@ const Register = () => {
                 <h5 className="text-center">Registrarse</h5>
               </Row>
 
-              {/* Selección de plan */}
+              
               <FormGroup className="mb-3">
                 <Form.Label>Selecciona un Plan</Form.Label>
                 <Form.Select name="plan" value={plan} onChange={(e) => setPlan(e.target.value)} required>
