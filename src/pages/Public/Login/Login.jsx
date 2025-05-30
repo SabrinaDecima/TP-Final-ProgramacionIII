@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import {
   Container,
   Button,
@@ -104,7 +103,7 @@ const Login = ({ onLogin }) => {
         fluid
         className="vh-100 d-flex justify-content-center align-items-center bg-dark"
       >
- 
+
         <div
           style={{
             position: 'absolute',
@@ -136,9 +135,8 @@ const Login = ({ onLogin }) => {
                       onChange={handleEmailChange}
                       value={email}
                       ref={emailRef}
-                      className={`input-email ${
-                        errors.email ? 'border-danger' : ''
-                      }`}
+                      className={`input-email ${errors.email ? 'border-danger' : ''
+                        }`}
                     />
                     {errors.email && (
                       <p className="text-danger">El campo email es obligatorio</p>
@@ -151,9 +149,8 @@ const Login = ({ onLogin }) => {
                       onChange={handlePasswordChange}
                       value={password}
                       ref={passwordRef}
-                      className={`input-password ${
-                        errors.password ? 'border-danger' : ''
-                      }`}
+                      className={`input-password ${errors.password ? 'border-danger' : ''
+                        }`}
                     />
                     {errors.password && (
                       <p className="text-danger">

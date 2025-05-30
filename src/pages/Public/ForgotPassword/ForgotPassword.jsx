@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Container, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { HouseDoorFill } from 'react-bootstrap-icons';
 
 const ForgotPassword = () => {

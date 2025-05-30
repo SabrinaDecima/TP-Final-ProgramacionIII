@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import prices from '../../../data/prices.json';
 
 const Home = () => {
@@ -36,7 +36,7 @@ const Home = () => {
               y equipamiento de última generación.
             </p>
             <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-              <Link to="/register">
+              <Link to="/registro">
                 <Button size="lg">Comenzar Ahora</Button>
               </Link>
               <a href="#plans">
@@ -64,11 +64,10 @@ const Home = () => {
                     </div>
                   )}
                   <div
-                    className={`card border rounded p-4 ${
-                      plan.highlighted
-                        ? 'border-primary bg-light shadow rounded-top-0'
-                        : ''
-                    }`}
+                    className={`card border rounded p-4 ${plan.highlighted
+                      ? 'border-primary bg-light shadow rounded-top-0'
+                      : ''
+                      }`}
                   >
                     <h3 className="card-title h4 fw-bold">{plan.title}</h3>
                     <div className="mt-3 fs-3 fw-bold">{plan.price}</div>

@@ -1,5 +1,5 @@
 import { Nav, Navbar } from 'react-bootstrap';
-import LogoGym from '../../public/logo-gym-transparent.png';
+import LogoGym from '../assets/logo-gym-transparent.png';
 import { Link } from 'react-router';
 const Sidebar = ({ role }) => {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import {
@@ -9,6 +9,7 @@ import {
   BiLock,
   BiLockOpen,
 } from 'react-icons/bi'; // Importamos iconos de react-icons
+import profilePic from '../../../assets/credenciales.png';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -169,8 +170,7 @@ const Register = () => {
             {/* Imagen falsa del perfil */}
             <div className="text-center mb-4">
               <Image
-                src="https://via.placeholder.com/150" 
-                alt="Profile Picture"
+                src={profilePic} alt="Profile Picture"
                 roundedCircle
                 style={{
                   width: '100px',
@@ -208,9 +208,8 @@ const Register = () => {
                     value={form.firstName}
                     onChange={handleChange}
                     ref={nameRef}
-                    className={`border rounded px-3 py-2 ${
-                      errors.firstName ? 'border-danger' : 'border-primary'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.firstName ? 'border-danger' : 'border-primary'
+                      }`}
                     autoComplete="given-name"
                   />
                 </Form.Group>
@@ -224,9 +223,8 @@ const Register = () => {
                     value={form.lastName}
                     onChange={handleChange}
                     ref={nameRef}
-                    className={`border rounded px-3 py-2 ${
-                      errors.lastName ? 'border-danger' : 'border-primary'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.lastName ? 'border-danger' : 'border-primary'
+                      }`}
                     autoComplete="family-name"
                   />
                 </Form.Group>
@@ -243,9 +241,8 @@ const Register = () => {
                   name="username"
                   value={form.username}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.username ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.username ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="username"
                 />
               </div>
@@ -261,9 +258,8 @@ const Register = () => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.email ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.email ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="email"
                 />
               </div>
@@ -279,9 +275,8 @@ const Register = () => {
                   name="telNumber"
                   value={form.telNumber}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.telNumber ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.telNumber ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="tel"
                 />
               </div>
@@ -297,9 +292,8 @@ const Register = () => {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.password ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.password ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="new-password"
                 />
               </div>
@@ -315,9 +309,8 @@ const Register = () => {
                   name="confirmPassword"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.confirmPassword ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.confirmPassword ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="new-password"
                 />
               </div>
