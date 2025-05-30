@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Button,
@@ -99,90 +99,98 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <Container
-      fluid
-      className="vh-100 d-flex justify-content-center align-items-center bg-light"
-    >
-      <div
-        style={{
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-          zIndex: 1000,
-        }}
+    <>
+      <Container
+        fluid
+        className="vh-100 d-flex justify-content-center align-items-center bg-dark"
       >
-        <Button variant="primary" onClick={goBackLoginHandler}>
-          <HouseDoorFill size={25} className="m-1 text-white" />
-        </Button>
-      </div>
+ 
+        <div
+          style={{
+            position: 'absolute',
+            top: '20px',
+            right: '20px',
+            zIndex: 1000,
+          }}
+        >
+          <Button variant="primary" onClick={goBackLoginHandler}>
+            <HouseDoorFill size={25} className="m-1" />
+          </Button>
+        </div>
 
-      <Row className="w-100 justify-content-center">
-        <Col xs={12} sm={10} md={6} lg={4}>
-          <Card className="p-4 shadow rounded-3 border-0">
-            <Card.Body>
-              <Row className="mb-2 text-center">
-                <h5>Bienvenido FunctionFit</h5>
-              </Row>
-              <Form onSubmit={handleSubmit}>
-                <FormGroup className="mb-4">
-                  <Form.Control
-                    type="email"
-                    placeholder="Ingresar email"
-                    onChange={handleEmailChange}
-                    value={email}
-                    ref={emailRef}
-                    className={`input-email ${
-                      errors.email ? 'border-danger' : ''
-                    }`}
-                  />
-                  {errors.email && (
-                    <p className="text-danger">El campo email es obligatorio</p>
-                  )}
-                </FormGroup>
-                <FormGroup className="mb-4">
-                  <Form.Control
-                    type="password"
-                    placeholder="Ingresar contraseña"
-                    onChange={handlePasswordChange}
-                    value={password}
-                    ref={passwordRef}
-                    className={`input-password ${
-                      errors.password ? 'border-danger' : ''
-                    }`}
-                  />
-                  {errors.password && (
-                    <p className="text-danger">
-                      El campo contraseña es obligatorio
-                    </p>
-                  )}
-                </FormGroup>
-                <div className="d-flex justify-content-center mb-3">
-                  <Button variant="primary" type="submit">
-                    Iniciar sesión
-                  </Button>
-                </div>
-                <Row className="mt-3">
-                  <Col className="text-center">
-                    <Link
-                      to="/recuperar"
-                      className=" text-decoration-none text-black mr-2"
-                    >
-                      Olvidaste tu contraseña?{' '}
-                    </Link>
-                    <Link
-                      to="/registro"
-                      className="text-decoration-none text-primary fw-bold"
-                    >
-                      Registrarse
-                    </Link>
-                  </Col>
+        <Row className="w-100 justify-content-center">
+          <Col xs={12} sm={10} md={6} lg={4}>
+            <Card
+              className="p-4 shadow rounded-3 border-primary"
+              style={{ backgroundColor: '#1e293b', color: 'white' }}
+            >
+              <Card.Body>
+                <Row className="mb-2 text-center">
+                  <h5>Bienvenido FunctionFit</h5>
                 </Row>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+                <Form onSubmit={handleSubmit}>
+                  <FormGroup className="mb-4">
+                    <Form.Control
+                      type="email"
+                      placeholder="Ingresar email"
+                      onChange={handleEmailChange}
+                      value={email}
+                      ref={emailRef}
+                      className={`input-email ${
+                        errors.email ? 'border-danger' : ''
+                      }`}
+                    />
+                    {errors.email && (
+                      <p className="text-danger">El campo email es obligatorio</p>
+                    )}
+                  </FormGroup>
+                  <FormGroup className="mb-4">
+                    <Form.Control
+                      type="password"
+                      placeholder="Ingresar contraseña"
+                      onChange={handlePasswordChange}
+                      value={password}
+                      ref={passwordRef}
+                      className={`input-password ${
+                        errors.password ? 'border-danger' : ''
+                      }`}
+                    />
+                    {errors.password && (
+                      <p className="text-danger">
+                        El campo contraseña es obligatorio
+                      </p>
+                    )}
+                  </FormGroup>
+                  <div className="d-flex justify-content-center mb-3">
+                    <Button variant="primary" type="submit">
+                      Iniciar sesión
+                    </Button>
+                  </div>
+                  <Row className="mt-3">
+                    <Col className="text-start">
+                      <Link
+                        to="/recuperar"
+                        className="text-decoration-underline text-start text-white"
+                      >
+                        Olvidaste tu contraseña?
+                      </Link>
+                    </Col>
+                    <Col className="text-end">
+                      <Link
+                        to="/registro"
+                        className="text-decoration-underline text-white"
+                      >
+                        Registrarse
+                      </Link>
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

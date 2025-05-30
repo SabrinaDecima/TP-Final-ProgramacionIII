@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Container, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { HouseDoorFill } from 'react-bootstrap-icons';
 
 const ForgotPassword = () => {
@@ -45,18 +45,15 @@ const ForgotPassword = () => {
       fluid
       className="vh-100 d-flex justify-content-center align-items-center bg-dark position-relative"
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-          zIndex: 1000,
-        }}
+      {/* Botón de casita */}
+      <Button
+        variant="primary"
+        onClick={goBackHome}
+        className="position-absolute top-0 end-0 m-4"
+        aria-label="Volver al inicio"
       >
-        <Button variant="primary" onClick={goBackHome}>
-          <HouseDoorFill size={25} className="m-1 text-white" />
-        </Button>
-      </div>
+        <HouseDoorFill size={25} />
+      </Button>
 
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={6} lg={4}>
@@ -76,7 +73,8 @@ const ForgotPassword = () => {
                   value={email}
                   onChange={handleChange}
                   required
-                  className="bg-transparent text-white"
+                  className="bg-white text-dark border border-primary"
+                  style={{ opacity: 1 }} // Para asegurar que el placeholder no se vea muy tenue
                 />
               </Form.Group>
               <div className="d-grid">
@@ -85,7 +83,9 @@ const ForgotPassword = () => {
                 </Button>
               </div>
             </Form>
-            {error && <div className="alert alert-danger mt-3">{error}</div>}
+            {error && (
+              <div className="alert alert-danger mt-3">{error}</div>
+            )}
           </div>
         </Col>
       </Row>

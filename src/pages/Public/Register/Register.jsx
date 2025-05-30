@@ -1,23 +1,14 @@
-import { useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router';
-import { Link } from 'react-router';
-import {
-  Container,
-  Button,
-  Card,
-  Col,
-  Form,
-  FormGroup,
-  Row,
-} from 'react-bootstrap';
-import { HouseDoorFill } from 'react-bootstrap-icons';
+import React, { useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-
-const availablePlans = [
-  { title: 'Básico', price: '$250000' },
-  { title: 'Premium', price: '$50000' },
-  { title: 'Elite', price: '$100000' },
-];
+import {
+  BiUser,
+  BiEnvelope,
+  BiPhone,
+  BiLock,
+  BiLockOpen,
+} from 'react-icons/bi'; // Importamos iconos de react-icons
 
 const Register = () => {
   const navigate = useNavigate();
@@ -25,42 +16,78 @@ const Register = () => {
   const searchParams = new URLSearchParams(location.search);
   const selectedPlanFromURL = searchParams.get('plan');
 
+  // Estado para los campos del formulario
   const [form, setForm] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
+    username: '',
     email: '',
+    telNumber: '',
     password: '',
+    confirmPassword: '',
+    selectedPlan: selectedPlanFromURL || '', // Plan seleccionado desde la URL o vacío
   });
 
-  const [plan, setPlan] = useState(selectedPlanFromURL || '');
+  // Estado para errores
   const [errors, setErrors] = useState({});
+
+  // Refs para los campos de entrada
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
+  // Manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
     setErrors({ ...errors, [name]: false });
   };
 
+  // Manejar cambio en la selección del plan
+  const handlePlanChange = (e) => {
+    setForm({ ...form, selectedPlan: e.target.value });
+  };
+
+  // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password } = form;
 
-    if (!name.trim()) {
+    const {
+      firstName,
+      lastName,
+      username,
+      email,
+      telNumber,
+      password,
+      confirmPassword,
+      selectedPlan,
+    } = form;
+
+    // Validación
+    if (!firstName.trim()) {
       toast.error('¡El nombre está vacío!');
-      setErrors((prev) => ({ ...prev, name: true }));
+      setErrors((prev) => ({ ...prev, firstName: true }));
       nameRef.current.focus();
       return;
     }
-
+    if (!lastName.trim()) {
+      toast.error('¡El apellido está vacío!');
+      setErrors((prev) => ({ ...prev, lastName: true }));
+      nameRef.current.focus();
+      return;
+    }
+    if (!username.trim()) {
+      toast.error('¡El nombre de usuario está vacío!');
+      setErrors((prev) => ({ ...prev, username: true }));
+      nameRef.current.focus();
+      return;
+    }
     if (!email.trim()) {
       toast.error('¡El email está vacío!');
       setErrors((prev) => ({ ...prev, email: true }));
       emailRef.current.focus();
       return;
     }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast.error('Formato de email inválido');
@@ -68,31 +95,37 @@ const Register = () => {
       emailRef.current.focus();
       return;
     }
-
+    if (!telNumber.trim()) {
+      toast.error('¡El número telefónico está vacío!');
+      setErrors((prev) => ({ ...prev, telNumber: true }));
+      nameRef.current.focus();
+      return;
+    }
     if (!password) {
       toast.error('¡La contraseña está vacía!');
       setErrors((prev) => ({ ...prev, password: true }));
       passwordRef.current.focus();
       return;
     }
-
     if (password.length < 6) {
       toast.error('La contraseña debe tener al menos 6 caracteres');
       setErrors((prev) => ({ ...prev, password: true }));
       passwordRef.current.focus();
       return;
     }
-
-    if (!plan) {
-      toast.error('Por favor selecciona un plan.');
+    if (password !== confirmPassword) {
+      toast.error('Las contraseñas no coinciden.');
+      setErrors((prev) => ({ ...prev, confirmPassword: true }));
+      passwordRef.current.focus();
       return;
     }
 
+    // Enviar datos al backend
     try {
       const response = await fetch('http://localhost:3000/api/registro', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, plan }),
+        body: JSON.stringify(form),
       });
 
       if (!response.ok) {
@@ -109,110 +142,192 @@ const Register = () => {
     }
   };
 
+  // Volver a la página de inicio
   const goBackHome = () => navigate('/home');
 
   return (
     <Container
       fluid
-      className="vh-100 d-flex justify-content-center align-items-center bg-light"
+      className="vh-100 d-flex justify-content-center align-items-center bg-dark"
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-          zIndex: 1000,
-        }}
+      {/* Botón de casita */}
+      <Button
+        variant="primary"
+        onClick={goBackHome}
+        className="position-absolute top-0 end-0 m-4"
+        aria-label="Volver al inicio"
       >
-        <Button variant="primary" onClick={goBackHome}>
-          <HouseDoorFill size={25} className="m-1 text-white" />
-        </Button>
-      </div>
+        <BiUser size={25} />
+      </Button>
+
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={6} lg={4}>
-          <Card className="p-4 shadow-sm rounded-3 border-0">
-            <Card.Body>
-              <Row className="mb-3">
-                <h5 className="text-center">Registrarse</h5>
-              </Row>
+          <div
+            className="p-4 shadow rounded-3 border border-primary"
+            style={{ backgroundColor: '#1e293b', color: 'white' }}
+          >
+            {/* Imagen falsa del perfil */}
+            <div className="text-center mb-4">
+              <Image
+                src="https://via.placeholder.com/150" 
+                alt="Profile Picture"
+                roundedCircle
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  objectFit: 'cover',
+                  borderColor: 'white', // Añadimos borde blanco para resaltar la imagen
+                }}
+              />
+            </div>
+            <h2 className="text-center mb-4">Registrarse</h2>
 
-              <FormGroup className="mb-3">
-                <Form.Label>Selecciona un Plan</Form.Label>
-                <Form.Select
-                  name="plan"
-                  value={plan}
-                  onChange={(e) => setPlan(e.target.value)}
-                  required
-                >
-                  <option value="">-- Selecciona un plan --</option>
-                  {availablePlans.map((p, idx) => (
-                    <option key={idx} value={p.title.toLowerCase()}>
-                      {p.title} - {p.price}
-                    </option>
-                  ))}
-                </Form.Select>
-              </FormGroup>
+            {/* Selección de Plan */}
+            <Form.Group controlId="selectedPlan" className="mb-3">
+              <Form.Label>Seleccionar Plan:</Form.Label>
+              <Form.Select
+                value={form.selectedPlan}
+                onChange={handlePlanChange}
+                className="border rounded px-3 py-2"
+              >
+                <option value="">-- Selecciona un plan --</option>
+                <option value="Básico">Básico ($25.000 por mes)</option>
+                <option value="Premium">Premium ($50.000 por mes)</option>
+                <option value="Elite">Elite ($100.000 por mes)</option>
+              </Form.Select>
+            </Form.Group>
 
-              <Form onSubmit={handleSubmit}>
-                <FormGroup className="mb-3">
+            {/* Nombre y Apellido */}
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Group controlId="firstName">
                   <Form.Control
                     type="text"
-                    placeholder="Nombre completo"
-                    name="name"
-                    value={form.name}
+                    placeholder="Nombre"
+                    name="firstName"
+                    value={form.firstName}
                     onChange={handleChange}
                     ref={nameRef}
-                    className={errors.name ? 'border border-danger' : ''}
-                    autoComplete="name"
+                    className={`border rounded px-3 py-2 ${
+                      errors.firstName ? 'border-danger' : 'border-primary'
+                    }`}
+                    autoComplete="given-name"
                   />
-                </FormGroup>
-                <FormGroup className="mb-3">
+                </Form.Group>
+              </Col>
+              <Col sm={6}>
+                <Form.Group controlId="lastName">
                   <Form.Control
-                    type="email"
-                    placeholder="Correo electrónico"
-                    name="email"
-                    value={form.email}
+                    type="text"
+                    placeholder="Apellido"
+                    name="lastName"
+                    value={form.lastName}
                     onChange={handleChange}
-                    ref={emailRef}
-                    className={errors.email ? 'border border-danger' : ''}
-                    autoComplete="email"
+                    ref={nameRef}
+                    className={`border rounded px-3 py-2 ${
+                      errors.lastName ? 'border-danger' : 'border-primary'
+                    }`}
+                    autoComplete="family-name"
                   />
-                </FormGroup>
-                <FormGroup className="mb-4">
-                  <Form.Control
-                    type="password"
-                    placeholder="Contraseña"
-                    name="password"
-                    value={form.password}
-                    onChange={handleChange}
-                    ref={passwordRef}
-                    className={errors.password ? 'border border-danger' : ''}
-                    autoComplete="new-password"
-                  />
-                </FormGroup>
-                <div className="d-grid">
-                  <Button
-                    variant="success"
-                    type="submit"
-                    className="py-2 fw-bold"
-                  >
-                    Registrarse
-                  </Button>
-                </div>
-                <Row className="mt-3">
-                  <Col className="text-center">
-                    ¿Ya tienes cuenta?{' '}
-                    <Link
-                      to="/login"
-                      className="text-decoration-none text-primary fw-bold"
-                    >
-                      Iniciar sesión
-                    </Link>
-                  </Col>
-                </Row>
-              </Form>
-            </Card.Body>
-          </Card>
+                </Form.Group>
+              </Col>
+            </Row>
+
+            {/* Nombre de Usuario */}
+            <Form.Group controlId="username" className="mb-3">
+              <div className="d-flex align-items-center">
+                <BiUser size={20} className="me-2 text-white" />
+                <Form.Control
+                  type="text"
+                  placeholder="Nombre de usuario"
+                  name="username"
+                  value={form.username}
+                  onChange={handleChange}
+                  className={`border rounded px-3 py-2 ${
+                    errors.username ? 'border-danger' : 'border-primary'
+                  }`}
+                  autoComplete="username"
+                />
+              </div>
+            </Form.Group>
+
+            {/* Email */}
+            <Form.Group controlId="email" className="mb-3">
+              <div className="d-flex align-items-center">
+                <BiEnvelope size={20} className="me-2 text-white" />
+                <Form.Control
+                  type="email"
+                  placeholder="Correo electrónico"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  className={`border rounded px-3 py-2 ${
+                    errors.email ? 'border-danger' : 'border-primary'
+                  }`}
+                  autoComplete="email"
+                />
+              </div>
+            </Form.Group>
+
+            {/* Teléfono */}
+            <Form.Group controlId="telNumber" className="mb-3">
+              <div className="d-flex align-items-center">
+                <BiPhone size={20} className="me-2 text-white" />
+                <Form.Control
+                  type="tel"
+                  placeholder="Teléfono"
+                  name="telNumber"
+                  value={form.telNumber}
+                  onChange={handleChange}
+                  className={`border rounded px-3 py-2 ${
+                    errors.telNumber ? 'border-danger' : 'border-primary'
+                  }`}
+                  autoComplete="tel"
+                />
+              </div>
+            </Form.Group>
+
+            {/* Contraseña */}
+            <Form.Group controlId="password" className="mb-3">
+              <div className="d-flex align-items-center">
+                <BiLock size={20} className="me-2 text-white" />
+                <Form.Control
+                  type="password"
+                  placeholder="Contraseña"
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  className={`border rounded px-3 py-2 ${
+                    errors.password ? 'border-danger' : 'border-primary'
+                  }`}
+                  autoComplete="new-password"
+                />
+              </div>
+            </Form.Group>
+
+            {/* Confirmar Contraseña */}
+            <Form.Group controlId="confirmPassword" className="mb-3">
+              <div className="d-flex align-items-center">
+                <BiLockOpen size={20} className="me-2 text-white" />
+                <Form.Control
+                  type="password"
+                  placeholder="Confirmar contraseña"
+                  name="confirmPassword"
+                  value={form.confirmPassword}
+                  onChange={handleChange}
+                  className={`border rounded px-3 py-2 ${
+                    errors.confirmPassword ? 'border-danger' : 'border-primary'
+                  }`}
+                  autoComplete="new-password"
+                />
+              </div>
+            </Form.Group>
+
+            {/* Botón de Registro */}
+            <Button variant="primary" type="submit" className="w-100">
+              Registrarse
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>
