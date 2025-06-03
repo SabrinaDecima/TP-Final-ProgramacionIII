@@ -21,8 +21,9 @@ const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [role, setRole] = useState(null);
   const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
 
- 
+
   const syncAuthState = () => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
@@ -30,6 +31,7 @@ const App = () => {
         const decodedToken = jwtDecode(accessToken);
         setRole(decodedToken.role || null);
         setEmail(decodedToken.email || '');
+        setId(decodedToken.id || '')
         setIsSignedIn(true);
       } catch (error) {
         setRole(null);
@@ -79,13 +81,13 @@ const App = () => {
             <Route
               path="/gimnasio/*"
               element={
-                <Layout onLogout={handleLogout} userEmail={email} role={role} />
+                <Layout onLogout={handleLogout} userEmail={email} role={role} id={id} />
               }
             >
               <Route index element={<Dashboard role={role} />} />
-              <Route path="clases" element={<Classes />} />
+              <Route path="clases" element={<Classes id={id} />} />
               <Route path="pagos" element={<Profile />} />
-              <Route path="historial" element={<Historical />} />
+              <Route path="historial" element={<Historical id={id} />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
