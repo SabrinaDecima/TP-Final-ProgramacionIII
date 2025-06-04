@@ -10,12 +10,15 @@ import {
   BiLockOpen,
 } from 'react-icons/bi'; // Importamos iconos de react-icons
 import profilePic from '../../../assets/credenciales.png';
+import PaymentModal from '../../../components/PaymentModal';
 
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const selectedPlanFromURL = searchParams.get('plan');
+
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   // Estado para los campos del formulario
   const [form, setForm] = useState({
@@ -25,7 +28,7 @@ const Register = () => {
     email: '',
     telNumber: '',
     password: '',
-    confirmPassword: '',
+    confirmPassword: '', // Faltaba este campo para la validación
     selectedPlan: selectedPlanFromURL || '', // Plan seleccionado desde la URL o vacío
   });
 
@@ -65,6 +68,13 @@ const Register = () => {
     } = form;
 
     // Validación
+
+    if (!selectedPlan) {
+      toast.error('¡Debes seleccionar un plan!');
+      setErrors((prev) => ({ ...prev, selectedPlan: true }));
+      return;
+    }
+
     if (!firstName.trim()) {
       toast.error('¡El nombre está vacío!');
       setErrors((prev) => ({ ...prev, firstName: true }));
@@ -121,12 +131,15 @@ const Register = () => {
       return;
     }
 
-    // Enviar datos al backend
+    setShowPaymentModal(true);
+  };
+
+  const handlePaymentConfirm = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/registro', {
+      const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form }),
       });
 
       if (!response.ok) {
@@ -141,9 +154,9 @@ const Register = () => {
     } catch (error) {
       toast.error(error.message || 'Hubo un problema al crear la cuenta');
     }
+    setShowPaymentModal(false);
   };
 
-  // Volver a la página de inicio
   const goBackHome = () => navigate('/home');
 
   return (
@@ -170,13 +183,14 @@ const Register = () => {
             {/* Imagen falsa del perfil */}
             <div className="text-center mb-4">
               <Image
-                src={profilePic} alt="Profile Picture"
+                src={profilePic}
+                alt="Profile Picture"
                 roundedCircle
                 style={{
                   width: '100px',
                   height: '100px',
                   objectFit: 'cover',
-                  borderColor: 'white', // Añadimos borde blanco para resaltar la imagen
+                  borderColor: 'white',
                 }}
               />
             </div>
@@ -208,8 +222,9 @@ const Register = () => {
                     value={form.firstName}
                     onChange={handleChange}
                     ref={nameRef}
-                    className={`border rounded px-3 py-2 ${errors.firstName ? 'border-danger' : 'border-primary'
-                      }`}
+                    className={`border rounded px-3 py-2 ${
+                      errors.firstName ? 'border-danger' : 'border-primary'
+                    }`}
                     autoComplete="given-name"
                   />
                 </Form.Group>
@@ -223,8 +238,9 @@ const Register = () => {
                     value={form.lastName}
                     onChange={handleChange}
                     ref={nameRef}
-                    className={`border rounded px-3 py-2 ${errors.lastName ? 'border-danger' : 'border-primary'
-                      }`}
+                    className={`border rounded px-3 py-2 ${
+                      errors.lastName ? 'border-danger' : 'border-primary'
+                    }`}
                     autoComplete="family-name"
                   />
                 </Form.Group>
@@ -241,8 +257,9 @@ const Register = () => {
                   name="username"
                   value={form.username}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.username ? 'border-danger' : 'border-primary'
-                    }`}
+                  className={`border rounded px-3 py-2 ${
+                    errors.username ? 'border-danger' : 'border-primary'
+                  }`}
                   autoComplete="username"
                 />
               </div>
@@ -258,8 +275,9 @@ const Register = () => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.email ? 'border-danger' : 'border-primary'
-                    }`}
+                  className={`border rounded px-3 py-2 ${
+                    errors.email ? 'border-danger' : 'border-primary'
+                  }`}
                   autoComplete="email"
                 />
               </div>
@@ -275,8 +293,9 @@ const Register = () => {
                   name="telNumber"
                   value={form.telNumber}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.telNumber ? 'border-danger' : 'border-primary'
-                    }`}
+                  className={`border rounded px-3 py-2 ${
+                    errors.telNumber ? 'border-danger' : 'border-primary'
+                  }`}
                   autoComplete="tel"
                 />
               </div>
@@ -292,8 +311,9 @@ const Register = () => {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.password ? 'border-danger' : 'border-primary'
-                    }`}
+                  className={`border rounded px-3 py-2 ${
+                    errors.password ? 'border-danger' : 'border-primary'
+                  }`}
                   autoComplete="new-password"
                 />
               </div>
@@ -309,17 +329,28 @@ const Register = () => {
                   name="confirmPassword"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.confirmPassword ? 'border-danger' : 'border-primary'
-                    }`}
+                  className={`border rounded px-3 py-2 ${
+                    errors.confirmPassword ? 'border-danger' : 'border-primary'
+                  }`}
                   autoComplete="new-password"
                 />
               </div>
             </Form.Group>
 
             {/* Botón de Registro */}
-            <Button variant="primary" type="submit" className="w-100">
-              Registrarse
-            </Button>
+            <Form onSubmit={handleSubmit}>
+              <Button variant="primary" type="submit" className="w-100">
+                Registrarse
+              </Button>
+            </Form>
+            {/* Modal de pago */}
+            <PaymentModal
+              modalState={{
+                show: showPaymentModal,
+                onHide: () => setShowPaymentModal(false),
+                onConfirm: handlePaymentConfirm,
+              }}
+            />
           </div>
         </Col>
       </Row>
