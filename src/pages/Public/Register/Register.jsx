@@ -22,14 +22,13 @@ const Register = () => {
 
   // Estado para los campos del formulario
   const [form, setForm] = useState({
-    plan: planFromURL || '', // Plan seleccionado desde la URL o vacío    
+    plan: planFromURL || '', // Plan seleccionado desde la URL o vacío
     name: '',
     lastname: '',
     email: '',
     telNumber: '',
     password: '',
     confirmPassword: '', // Faltaba este campo para la validación
-
   });
 
   // Estado para errores
@@ -65,7 +64,6 @@ const Register = () => {
       confirmPassword,
       plan,
     } = form;
-
 
     // Validación
 
@@ -155,7 +153,6 @@ const Register = () => {
     setShowPaymentModal(false);
   };
 
-
   const goBackHome = () => navigate('/home');
 
   return (
@@ -195,127 +192,131 @@ const Register = () => {
             </div>
             <h2 className="text-center mb-4">Registrarse</h2>
 
-            {/* Selección de Plan */}
-            <Form.Group controlId="plan" className="mb-3">
-              <Form.Label>Seleccionar Plan:</Form.Label>
-              <Form.Select
-                value={form.plan}
-                onChange={handlePlanChange}
-                className="border rounded px-3 py-2"
-              >
-                <option value="">-- Selecciona un plan --</option>
-                <option value="Básico">Básico ($25.000 por mes)</option>
-                <option value="Premium">Premium ($50.000 por mes)</option>
-                <option value="Elite">Elite ($100.000 por mes)</option>
-              </Form.Select>
-            </Form.Group>
-
-            {/* Nombre y Apellido */}
-            <Row className="mb-3">
-              <Col sm={6}>
-                <Form.Group controlId="name">
-                  <Form.Control
-                    type="text"
-                    placeholder="Nombre"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    ref={nameRef}
-                    className={`border rounded px-3 py-2 ${errors.name ? 'border-danger' : 'border-primary'
-                      }`}
-                    autoComplete="given-name"
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={6}>
-                <Form.Group controlId="lastname">
-                  <Form.Control
-                    type="text"
-                    placeholder="Apellido"
-                    name="lastname"
-                    value={form.lastname}
-                    onChange={handleChange}
-                    ref={nameRef}
-                    className={`border rounded px-3 py-2 ${errors.lastname ? 'border-danger' : 'border-primary'
-                      }`}
-                    autoComplete="family-name"
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-
-            {/* Nombre de Usuario */}
-
-            {/* Email */}
-            <Form.Group controlId="email" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiEnvelope size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="email"
-                  placeholder="Correo electrónico"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.email ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="email"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Teléfono */}
-            <Form.Group controlId="telNumber" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiPhone size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="tel"
-                  placeholder="Teléfono"
-                  name="telNumber"
-                  value={form.telNumber}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.telNumber ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="tel"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Contraseña */}
-            <Form.Group controlId="password" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiLock size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="password"
-                  placeholder="Contraseña"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.password ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="new-password"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Confirmar Contraseña */}
-            <Form.Group controlId="confirmPassword" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiLockOpen size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="password"
-                  placeholder="Confirmar contraseña"
-                  name="confirmPassword"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.confirmPassword ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="new-password"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Botón de Registro */}
             <Form onSubmit={handleSubmit}>
+              {/* Selección de Plan */}
+              <Form.Group controlId="plan" className="mb-3">
+                <Form.Label>Seleccionar Plan:</Form.Label>
+                <Form.Select
+                  value={form.plan}
+                  onChange={handlePlanChange}
+                  className="border rounded px-3 py-2"
+                >
+                  <option value="">-- Selecciona un plan --</option>
+                  <option value="Básico">Básico ($25.000 por mes)</option>
+                  <option value="Premium">Premium ($50.000 por mes)</option>
+                  <option value="Elite">Elite ($100.000 por mes)</option>
+                </Form.Select>
+              </Form.Group>
+
+              {/* Nombre y Apellido */}
+              <Row className="mb-3">
+                <Col sm={6}>
+                  <Form.Group controlId="name">
+                    <Form.Control
+                      type="text"
+                      placeholder="Nombre"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      ref={nameRef}
+                      className={`border rounded px-3 py-2 ${
+                        errors.name ? 'border-danger' : 'border-primary'
+                      }`}
+                      autoComplete="given-name"
+                    />
+                  </Form.Group>
+                </Col>
+                <Col sm={6}>
+                  <Form.Group controlId="lastname">
+                    <Form.Control
+                      type="text"
+                      placeholder="Apellido"
+                      name="lastname"
+                      value={form.lastname}
+                      onChange={handleChange}
+                      ref={nameRef}
+                      className={`border rounded px-3 py-2 ${
+                        errors.lastname ? 'border-danger' : 'border-primary'
+                      }`}
+                      autoComplete="family-name"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              {/* Email */}
+              <Form.Group controlId="email" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiEnvelope size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="email"
+                    placeholder="Correo electrónico"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.email ? 'border-danger' : 'border-primary'
+                    }`}
+                    autoComplete="email"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Teléfono */}
+              <Form.Group controlId="telNumber" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiPhone size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="tel"
+                    placeholder="Teléfono"
+                    name="telNumber"
+                    value={form.telNumber}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.telNumber ? 'border-danger' : 'border-primary'
+                    }`}
+                    autoComplete="tel"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Contraseña */}
+              <Form.Group controlId="password" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiLock size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="password"
+                    placeholder="Contraseña"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.password ? 'border-danger' : 'border-primary'
+                    }`}
+                    autoComplete="new-password"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Confirmar Contraseña */}
+              <Form.Group controlId="confirmPassword" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiLockOpen size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="password"
+                    placeholder="Confirmar contraseña"
+                    name="confirmPassword"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.confirmPassword ? 'border-danger' : 'border-primary'
+                    }`}
+                    autoComplete="new-password"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Botón de Registro */}
               <Button variant="primary" type="submit" className="w-100">
                 Registrarse
               </Button>

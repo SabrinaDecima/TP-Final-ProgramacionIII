@@ -13,14 +13,19 @@ const Home = () => {
             <span className="fs-5 fw-bold text-warning">FunctionFit()</span>
           </div>
           <div className="d-flex align-items-center gap-3">
-            <Link to="/login">
-              <Button variant="outline-warning" className="text-white">
+            <div className="d-flex align-items-center gap-3">
+              <Button
+                as={Link}
+                to="/login"
+                variant="outline-warning"
+                className="text-white"
+              >
                 Iniciar Sesión
               </Button>
-            </Link>
-            <Link to="/registro">
-              <Button variant="warning">Registrarse</Button>
-            </Link>
+              <Button as={Link} to="/registro" variant="warning">
+                Registrarse
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -45,16 +50,14 @@ const Home = () => {
                       Comenzar Ahora
                     </Button>
                   </Link>
-                  <a href="#planes">
-                    <Button
-                      size="lg"
-                      variant="outline-warning"
-                      className="fw-bold text-white"
-                      href="#plans"
-                    >
-                      Ver Planes
-                    </Button>
-                  </a>
+                  <Button
+                    size="lg"
+                    variant="outline-warning"
+                    className="fw-bold text-white"
+                    href="#plans"
+                  >
+                    Ver Planes
+                  </Button>
                 </div>
               </Col>
               <Col md={6} className="text-center">
@@ -79,8 +82,8 @@ const Home = () => {
               Nuestros Planes
             </h2>
             <Row className="g-4">
-              {prices.prices.map((plan, index) => (
-                <Col key={index} md={4}>
+              {prices.prices.map((plan) => (
+                <Col key={plan.title} md={4}>
                   {plan.highlighted && (
                     <div className="bg-warning text-dark text-center rounded-top py-2">
                       <p className="fw-bolder m-0 py-1 text-uppercase">
@@ -101,8 +104,11 @@ const Home = () => {
                     <div className="mt-3 fs-3 fw-bold">{plan.price}</div>
                     <p className="text-muted small">por mes</p>
                     <ul className="list-unstyled mt-4 flex-grow-1">
-                      {plan.features.map((feature, i) => (
-                        <li key={i} className="d-flex align-items-center my-2">
+                      {plan.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="d-flex align-items-center my-2"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -121,7 +127,7 @@ const Home = () => {
                         </li>
                       ))}
                     </ul>
-                    <Link to="/registro">
+                    <Link to={`/registro?plan=${encodeURIComponent(plan.title)}`}>
                       <Button
                         variant={
                           plan.highlighted ? 'warning' : 'outline-warning'
@@ -219,8 +225,8 @@ const Home = () => {
                     </svg>
                   ),
                 },
-              ].map((feature, index) => (
-                <Col key={index} md={4}>
+              ].map((feature) => (
+                <Col key={feature.title} md={4}>
                   <div className="text-center p-4 rounded bg-white h-100 shadow-sm">
                     <div className="mb-3">{feature.icon}</div>
                     <h3 className="h5 fw-bold mb-2 text-warning">
