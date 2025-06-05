@@ -53,7 +53,7 @@ const Sidebar = ({ role }) => {
                 Menu
               </Link>
               <Link to="/gimnasio/members-management" className="nav-link">
-                Gimnasios
+                Gestion
               </Link>
               <Link to="/gimnasio/historial" className="nav-link">
                 Historial
