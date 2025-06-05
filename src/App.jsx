@@ -16,6 +16,7 @@ import Profile from './pages/Private/Profile/Profile';
 import Historical from './pages/Private/Historical/Historical';
 import Layout from './components/Layout';
 import ForgotPassword from './pages/Public/ForgotPassword/ForgotPassword';
+import { getToken, removeToken } from './services/authService';
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -23,21 +24,20 @@ const App = () => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState('');
 
-
   const syncAuthState = () => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = getToken();
     if (accessToken) {
       try {
         const decodedToken = jwtDecode(accessToken);
         setRole(decodedToken.role || null);
         setEmail(decodedToken.email || '');
-        setId(decodedToken.id || '')
+        setId(decodedToken.id || '');
         setIsSignedIn(true);
       } catch (error) {
         setRole(null);
         setEmail('');
         setIsSignedIn(false);
-        localStorage.removeItem('accessToken');
+        removeToken();
         console.error('Token inválido o expirado:', error);
       }
     } else {
@@ -61,7 +61,7 @@ const App = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
+    removeToken();
     setIsSignedIn(false);
     setRole(null);
     setEmail('');
@@ -73,15 +73,47 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="home" />} />
-          <Route path="home" element={<Home onLogin={handleSignIn} />} />
-          <Route path="login" element={<Login onLogin={handleSignIn} />} />
+          <Route
+            path="home"
+            element={
+              isSignedIn ? (
+                <Navigate to="/gimnasio" replace />
+              ) : (
+                <Home onLogin={handleSignIn} />
+              )
+            }
+          />
+          <Route
+            path="login"
+            element={
+              isSignedIn ? (
+                <Navigate to="/gimnasio" replace />
+              ) : (
+                <Login onLogin={handleSignIn} />
+              )
+            }
+          />
           <Route path="/recuperar" element={<ForgotPassword />} />
-          <Route path="registro" element={<Register />} />
+          <Route
+            path="registro"
+            element={
+              isSignedIn ? (
+                <Navigate to="/gimnasio" replace />
+              ) : (
+                <Register />
+              )
+            }
+          />
           <Route element={<Protected role={role} isSignedIn={isSignedIn} />}>
             <Route
               path="/gimnasio/*"
               element={
-                <Layout onLogout={handleLogout} userEmail={email} role={role} id={id} />
+                <Layout
+                  onLogout={handleLogout}
+                  userEmail={email}
+                  role={role}
+                  id={id}
+                />
               }
             >
               <Route index element={<Dashboard role={role} />} />
