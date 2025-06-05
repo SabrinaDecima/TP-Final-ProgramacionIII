@@ -16,20 +16,20 @@ const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const selectedPlanFromURL = searchParams.get('plan');
+  const planFromURL = searchParams.get('plan');
 
   const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   // Estado para los campos del formulario
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
+    plan: planFromURL || '', // Plan seleccionado desde la URL o vacío    
+    name: '',
+    lastname: '',
     email: '',
     telNumber: '',
     password: '',
     confirmPassword: '', // Faltaba este campo para la validación
-    selectedPlan: selectedPlanFromURL || '', // Plan seleccionado desde la URL o vacío
+
   });
 
   // Estado para errores
@@ -49,7 +49,7 @@ const Register = () => {
 
   // Manejar cambio en la selección del plan
   const handlePlanChange = (e) => {
-    setForm({ ...form, selectedPlan: e.target.value });
+    setForm({ ...form, plan: e.target.value });
   };
 
   // Manejar el envío del formulario
@@ -57,42 +57,37 @@ const Register = () => {
     e.preventDefault();
 
     const {
-      firstName,
-      lastName,
-      username,
+      name,
+      lastname,
       email,
       telNumber,
       password,
       confirmPassword,
-      selectedPlan,
+      plan,
     } = form;
+
 
     // Validación
 
-    if (!selectedPlan) {
+    if (!plan) {
       toast.error('¡Debes seleccionar un plan!');
-      setErrors((prev) => ({ ...prev, selectedPlan: true }));
+      setErrors((prev) => ({ ...prev, plan: true }));
       return;
     }
 
-    if (!firstName.trim()) {
+    if (!name.trim()) {
       toast.error('¡El nombre está vacío!');
-      setErrors((prev) => ({ ...prev, firstName: true }));
+      setErrors((prev) => ({ ...prev, name: true }));
       nameRef.current.focus();
       return;
     }
-    if (!lastName.trim()) {
+    if (!lastname.trim()) {
       toast.error('¡El apellido está vacío!');
-      setErrors((prev) => ({ ...prev, lastName: true }));
+      setErrors((prev) => ({ ...prev, lastname: true }));
       nameRef.current.focus();
       return;
     }
-    if (!username.trim()) {
-      toast.error('¡El nombre de usuario está vacío!');
-      setErrors((prev) => ({ ...prev, username: true }));
-      nameRef.current.focus();
-      return;
-    }
+
     if (!email.trim()) {
       toast.error('¡El email está vacío!');
       setErrors((prev) => ({ ...prev, email: true }));
@@ -136,10 +131,13 @@ const Register = () => {
 
   const handlePaymentConfirm = async () => {
     try {
+      // Eliminamos confirmPassword antes de enviar al backend
+      const { confirmPassword, ...userToSend } = form;
+
       const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form }),
+        body: JSON.stringify(userToSend),
       });
 
       if (!response.ok) {
@@ -156,6 +154,7 @@ const Register = () => {
     }
     setShowPaymentModal(false);
   };
+
 
   const goBackHome = () => navigate('/home');
 
@@ -197,10 +196,10 @@ const Register = () => {
             <h2 className="text-center mb-4">Registrarse</h2>
 
             {/* Selección de Plan */}
-            <Form.Group controlId="selectedPlan" className="mb-3">
+            <Form.Group controlId="plan" className="mb-3">
               <Form.Label>Seleccionar Plan:</Form.Label>
               <Form.Select
-                value={form.selectedPlan}
+                value={form.plan}
                 onChange={handlePlanChange}
                 className="border rounded px-3 py-2"
               >
@@ -214,33 +213,31 @@ const Register = () => {
             {/* Nombre y Apellido */}
             <Row className="mb-3">
               <Col sm={6}>
-                <Form.Group controlId="firstName">
+                <Form.Group controlId="name">
                   <Form.Control
                     type="text"
                     placeholder="Nombre"
-                    name="firstName"
-                    value={form.firstName}
+                    name="name"
+                    value={form.name}
                     onChange={handleChange}
                     ref={nameRef}
-                    className={`border rounded px-3 py-2 ${
-                      errors.firstName ? 'border-danger' : 'border-primary'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.name ? 'border-danger' : 'border-primary'
+                      }`}
                     autoComplete="given-name"
                   />
                 </Form.Group>
               </Col>
               <Col sm={6}>
-                <Form.Group controlId="lastName">
+                <Form.Group controlId="lastname">
                   <Form.Control
                     type="text"
                     placeholder="Apellido"
-                    name="lastName"
-                    value={form.lastName}
+                    name="lastname"
+                    value={form.lastname}
                     onChange={handleChange}
                     ref={nameRef}
-                    className={`border rounded px-3 py-2 ${
-                      errors.lastName ? 'border-danger' : 'border-primary'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.lastname ? 'border-danger' : 'border-primary'
+                      }`}
                     autoComplete="family-name"
                   />
                 </Form.Group>
@@ -248,22 +245,6 @@ const Register = () => {
             </Row>
 
             {/* Nombre de Usuario */}
-            <Form.Group controlId="username" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiUser size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="text"
-                  placeholder="Nombre de usuario"
-                  name="username"
-                  value={form.username}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.username ? 'border-danger' : 'border-primary'
-                  }`}
-                  autoComplete="username"
-                />
-              </div>
-            </Form.Group>
 
             {/* Email */}
             <Form.Group controlId="email" className="mb-3">
@@ -275,9 +256,8 @@ const Register = () => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.email ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.email ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="email"
                 />
               </div>
@@ -293,9 +273,8 @@ const Register = () => {
                   name="telNumber"
                   value={form.telNumber}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.telNumber ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.telNumber ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="tel"
                 />
               </div>
@@ -311,9 +290,8 @@ const Register = () => {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.password ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.password ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="new-password"
                 />
               </div>
@@ -329,9 +307,8 @@ const Register = () => {
                   name="confirmPassword"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${
-                    errors.confirmPassword ? 'border-danger' : 'border-primary'
-                  }`}
+                  className={`border rounded px-3 py-2 ${errors.confirmPassword ? 'border-danger' : 'border-primary'
+                    }`}
                   autoComplete="new-password"
                 />
               </div>

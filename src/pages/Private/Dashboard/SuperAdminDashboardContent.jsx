@@ -6,8 +6,8 @@ const SuperAdminDashboardContent = () => {
 
   const cardData = [
     {
-      title: 'Gimnasios',
-      text: 'Administrar los gimnasios',
+      title: 'Gestion',
+      text: 'Gestiona el gimnasio y sus administradores',
       buttonName: 'Ver',
       pathname: 'members-management',
     },
