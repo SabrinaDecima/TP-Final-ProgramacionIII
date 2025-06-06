@@ -1,19 +1,7 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
 # TP-Final-ProgramacionIII
 
-🏋️‍♀️ FunctionFit() - Gestión de Gimnasio
+##🏋️‍♀️ FunctionFit() - Gestión de Gimnasio
+
 FunctionFit() es una aplicación web pensada para mejorar la experiencia de los usuarios de un gimnasio. Permite a los socios gestionar sus actividades de manera rápida y sencilla desde cualquier dispositivo.
 
 ✨ Funcionalidades
@@ -157,7 +145,7 @@ Páginas protegidas (requieren autenticación):
 - `Protected.jsx`: Componente de protección de rutas. Solo permite el acceso a usuarios autenticados.
   Se usa como middleware en **react-router**.
 
-- `index.js`: Archivo principal de rutas. Aquí se define la estructura de navegación usando **react-router-dom**.
+- `index.js`: Archivo principal de rutas. Aquí se define la estructura de navegación usando **react-router**.
 
 #### `utils/`
 
@@ -185,14 +173,14 @@ Se utiliza un sistema de protección de rutas basado en roles, permitiendo mostr
 
 ### Roles Soportados
 
-- `user`: Usuario normal.
+- `member`: Usuario normal.
 - `admin`: Administrador.
 - `superadmin`: Superadministrador (acceso completo).
 
 ### Cómo funciona
 
 - El componente `Protected.jsx` revisa si el usuario está autenticado y tiene el rol adecuado antes de renderizar una ruta.
-- Si el usuario no tiene permiso, redirige a `/login` o `/unauthorized`.
+- Si el usuario no tiene permiso, redirige a `/login` o `/home`.
 
 ---
 
@@ -203,15 +191,6 @@ Los componentes definidos en `components/` son utilizados en varias partes del p
 - **Header.jsx**: Navegación común en todas las páginas.
 - **Sidebar.jsx**: Menú lateral dinámico según el rol del usuario.
 - **Footer.jsx**: Pie de página común.
-
----
-
-## 🎨 Layouts
-
-Los layouts definen cómo se ven las páginas dependiendo del contexto:
-
-- **PublicLayout.jsx**: Diseño simple para páginas públicas (ej. login).
-- **ProtectedLayout.jsx**: Diseño más complejo para usuarios logueados, incluye menús, sidebar, etc.
 
 ---
 
@@ -228,16 +207,6 @@ Aquí se almacenan todos los recursos gráficos que se usan en la aplicación:
 Contiene funciones útiles que pueden ser llamadas desde cualquier parte de la aplicación:
 
 - **auth.js**: Funciones para verificar sesión activa, obtener token, validar rol, etc.
-
----
-
-## 🧪 Escalabilidad Futura
-
-La estructura actual permite fácil escalabilidad:
-
-- Agregar nuevos roles (ej. `moderator`).
-- Crear nuevas páginas y layouts.
-- Implementar módulos adicionales (ej. gestión de usuarios, historial, notificaciones).
 
 ---
 
@@ -307,6 +276,24 @@ A partir de la última actualización, la gestión del token JWT se centralizó 
 
 ---
 
-## Cambios recientes
+## Cómo ejecutar el proyecto
+
+1. Instala las dependencias:
+   ```sh
+   npm install
+   ```
+2. Inicia el servidor de desarrollo:
+   ```sh
+   npm run dev
+   ```
+3. Accede a [http://localhost:5173](http://localhost:5173) en tu navegador.
+
+---
+
+## Notas
+
+- El backend debe estar corriendo en `http://localhost:3000` para el registro de usuarios.
+
+## 🏃🏻 Cambios recientes
 
 Consulta el archivo [README.changelog.md](./README.changelog.md) para ver el detalle de los últimos cambios.

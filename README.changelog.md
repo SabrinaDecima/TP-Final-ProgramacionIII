@@ -12,22 +12,4 @@
 
 ---
 
-## Cómo ejecutar el proyecto
-
-1. Instala las dependencias:
-   ```sh
-   npm install
-   ```
-2. Inicia el servidor de desarrollo:
-   ```sh
-   npm run dev
-   ```
-3. Accede a [http://localhost:5173](http://localhost:5173) en tu navegador.
-
----
-
-## Notas
-
-- El backend debe estar corriendo en `http://localhost:3000` para el registro de usuarios.
-
 [Volver al inicio](./README.md)
