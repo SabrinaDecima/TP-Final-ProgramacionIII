@@ -294,3 +294,7 @@ Ejemplo de uso:
 Esto aplica un fondo blanco al enlace activo. Puedes personalizar el color en el archivo `Sidebar.jsx`.
 
 ---
+
+## Cambios recientes
+
+Consulta el archivo [README.changelog.md](./README.changelog.md) para ver el detalle de los últimos cambios.
