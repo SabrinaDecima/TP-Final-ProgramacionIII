@@ -63,3 +63,28 @@ footer {
   background-color: var(--color-primary);
   z-index: 1000;
 }
+
+/* Estilo general */
+body {
+  background-color: #e8f5e9; /* Verde claro */
+}
+
+/* Campos de entrada */
+.form-control {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Iconos */
+svg {
+  margin-right: 10px;
+}
+
+/* Errores */
+.border-danger {
+  border-color: #dc3545 !important; /* Rojo */
+}
+
+/* Énfasis en campos correctos */
+.border-primary {
+  border-color: var(--color-secondary) !important; /* Azul */
+}

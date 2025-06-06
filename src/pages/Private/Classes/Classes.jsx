@@ -2,7 +2,8 @@ import { Row, Col } from 'react-bootstrap';
 import ClassItem from '../classItem/ClassItem';
 import { useEffect, useState } from 'react';
 
-const Classes = () => {
+const Classes = ({ id }) => {
+  console.log(id)
   const [clases, setClases] = useState([]);
   useEffect(() => {
     fetch('http://localhost:3000/clases')
@@ -17,7 +18,7 @@ const Classes = () => {
       <Row>
         {clases.map((clase) => (
           <Col key={clase.id} md={4} className="mb-4">
-            <ClassItem clase={clase} />
+            <ClassItem clase={clase} id={id} />
           </Col>
         ))}
       </Row>

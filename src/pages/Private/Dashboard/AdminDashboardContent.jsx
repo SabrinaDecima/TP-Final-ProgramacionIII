@@ -21,7 +21,7 @@ const AdminDashboardContent = () => {
       title: 'Agregar clases',
       text: 'Agrega nuevas clases al sistema',
       buttonName: 'Agregar',
-      pathname: 'classes',
+      pathname: 'clases',
     },
   ];
   const handleRoute = (page) => {

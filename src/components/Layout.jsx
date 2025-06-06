@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 
 const Layout = ({ onLogout, userEmail, role }) => {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column min-vh-100 bg-dark bg-opacity-10">
       <Header userEmail={userEmail} handleLogout={onLogout} />
       <div className="d-flex flex-grow-1 pt-5">
         <Sidebar role={role} />
