@@ -1,5 +1,5 @@
 import { Row, Col } from 'react-bootstrap';
-import ClassItem from '../classItem/ClassItem';
+import ClassItem from './ClassItem';
 import { useEffect, useState } from 'react';
 
 const Classes = ({ id }) => {

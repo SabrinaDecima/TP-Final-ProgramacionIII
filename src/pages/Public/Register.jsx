@@ -3,8 +3,8 @@ import { useNavigate, useLocation, Link } from 'react-router';
 import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { BiEnvelope, BiPhone, BiLock, BiLockOpen } from 'react-icons/bi'; // Importamos iconos de react-icons
-import logo from '../../../assets/logo-gym-transparent.png';
-import PaymentModal from '../../../components/PaymentModal';
+import logo from '../../assets/logo-gym-transparent.png'; 
+import PaymentModal from '../../components/PaymentModal';
 import { HiHome } from 'react-icons/hi';
 
 const Register = () => {
@@ -210,9 +210,8 @@ const Register = () => {
                       value={form.name}
                       onChange={handleChange}
                       ref={nameRef}
-                      className={`border rounded px-3 py-2 ${
-                        errors.name ? 'border-danger' : 'border-warning'
-                      }`}
+                      className={`border rounded px-3 py-2 ${errors.name ? 'border-danger' : 'border-warning'
+                        }`}
                       autoComplete="given-name"
                     />
                   </Form.Group>
@@ -226,9 +225,8 @@ const Register = () => {
                       value={form.lastname}
                       onChange={handleChange}
                       ref={nameRef}
-                      className={`border rounded px-3 py-2 ${
-                        errors.lastname ? 'border-danger' : 'border-warning'
-                      }`}
+                      className={`border rounded px-3 py-2 ${errors.lastname ? 'border-danger' : 'border-warning'
+                        }`}
                       autoComplete="family-name"
                     />
                   </Form.Group>
@@ -245,9 +243,8 @@ const Register = () => {
                     name="email"
                     value={form.email}
                     onChange={handleChange}
-                    className={`border rounded px-3 py-2 ${
-                      errors.email ? 'border-danger' : 'border-warning'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.email ? 'border-danger' : 'border-warning'
+                      }`}
                     autoComplete="email"
                   />
                 </div>
@@ -263,9 +260,8 @@ const Register = () => {
                     name="telNumber"
                     value={form.telNumber}
                     onChange={handleChange}
-                    className={`border rounded px-3 py-2 ${
-                      errors.telNumber ? 'border-danger' : 'border-warning'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.telNumber ? 'border-danger' : 'border-warning'
+                      }`}
                     autoComplete="tel"
                   />
                 </div>
@@ -281,9 +277,8 @@ const Register = () => {
                     name="password"
                     value={form.password}
                     onChange={handleChange}
-                    className={`border rounded px-3 py-2 ${
-                      errors.password ? 'border-danger' : 'border-warning'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.password ? 'border-danger' : 'border-warning'
+                      }`}
                     autoComplete="new-password"
                   />
                 </div>
@@ -299,11 +294,10 @@ const Register = () => {
                     name="confirmPassword"
                     value={form.confirmPassword}
                     onChange={handleChange}
-                    className={`border rounded px-3 py-2 ${
-                      errors.confirmPassword
-                        ? 'border-danger'
-                        : 'border-warning'
-                    }`}
+                    className={`border rounded px-3 py-2 ${errors.confirmPassword
+                      ? 'border-danger'
+                      : 'border-warning'
+                      }`}
                     autoComplete="new-password"
                   />
                 </div>

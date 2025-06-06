@@ -5,18 +5,18 @@ import { jwtDecode } from 'jwt-decode';
 
 import './App.css';
 
-import Login from './pages/Public/Login/Login';
-import Register from './pages/Public/Register/Register';
-import Home from './pages/Public/Home/Home';
+import Login from './pages/Public/Login';
+import Register from './pages/Public/Register';
+import Home from './pages/Public/Home';
 import Dashboard from './pages/Private/Dashboard/Dashboard';
-import NotFound from './pages/NotFound';
+import NotFound from './routes/NotFound';
 import Protected from './routes/Protected';
-import Classes from './pages/Private/Classes/Classes';
-import Historical from './pages/Private/Historical/Historical';
+import Classes from './pages/Private/Classes';
+import Historical from './pages/Private/Historical';
 import Layout from './components/Layout';
-import ForgotPassword from './pages/Public/ForgotPassword/ForgotPassword';
+import ForgotPassword from './pages/Public/ForgotPassword';
 import { getToken, removeToken } from './services/authService';
-import Pagos from './pages/Private/pagos/Pagos';
+import Pagos from './pages/Private/Pagos';
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);

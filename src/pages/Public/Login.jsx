@@ -12,7 +12,7 @@ import {
   Image,
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import logo from '../../../assets/logo-gym-transparent.png'; // Asegúrate de que la ruta sea correcta
+import logo from '../../assets/logo-gym-transparent.png'; // Asegúrate de que la ruta sea correcta
 import { HiHome } from 'react-icons/hi';
 
 const Login = ({ onLogin }) => {
@@ -143,9 +143,8 @@ const Login = ({ onLogin }) => {
                     value={email}
                     ref={emailRef}
                     autoComplete="username"
-                    className={`input-email ${
-                      errors.email ? 'border-danger' : 'border-warning'
-                    }`}
+                    className={`input-email ${errors.email ? 'border-danger' : 'border-warning'
+                      }`}
                   />
                   {errors.email && (
                     <p className="text-danger">El campo email es obligatorio</p>
@@ -159,9 +158,8 @@ const Login = ({ onLogin }) => {
                     autoComplete="current-password"
                     value={password}
                     ref={passwordRef}
-                    className={`input-password ${
-                      errors.password ? 'border-danger' : 'border-warning'
-                    }`}
+                    className={`input-password ${errors.password ? 'border-danger' : 'border-warning'
+                      }`}
                   />
                   {errors.password && (
                     <p className="text-danger">

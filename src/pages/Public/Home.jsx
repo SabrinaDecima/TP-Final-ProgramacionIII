@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router';
-import prices from '../../../data/prices.json';
-import heroImg from '../../../assets/logo-gym-transparent.png';
+import prices from '../../data/prices.json';
+import heroImg from '../../assets/logo-gym-transparent.png';
 
 const Home = () => {
   return (
@@ -92,11 +92,10 @@ const Home = () => {
                     </div>
                   )}
                   <Card
-                    className={`border rounded p-4 ${
-                      plan.highlighted
+                    className={`border rounded p-4 ${plan.highlighted
                         ? 'border-warning bg-light shadow rounded-top-0'
                         : 'bg-dark text-white border-secondary'
-                    }`}
+                      }`}
                   >
                     <h3 className="card-title h4 fw-bold text-warning">
                       {plan.title}
