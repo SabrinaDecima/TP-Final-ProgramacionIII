@@ -1,16 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate, useLocation, Link } from 'react-router';
 import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import {
-  BiUser,
-  BiEnvelope,
-  BiPhone,
-  BiLock,
-  BiLockOpen,
-} from 'react-icons/bi'; // Importamos iconos de react-icons
-import profilePic from '../../../assets/credenciales.png';
+import { BiEnvelope, BiPhone, BiLock, BiLockOpen } from 'react-icons/bi'; // Importamos iconos de react-icons
+import logo from '../../../assets/logo-gym-transparent.png';
 import PaymentModal from '../../../components/PaymentModal';
+import { HiHome } from 'react-icons/hi';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,14 +17,13 @@ const Register = () => {
 
   // Estado para los campos del formulario
   const [form, setForm] = useState({
-    plan: planFromURL || '', // Plan seleccionado desde la URL o vacío    
+    plan: planFromURL || '', // Plan seleccionado desde la URL o vacío
     name: '',
     lastname: '',
     email: '',
     telNumber: '',
     password: '',
     confirmPassword: '', // Faltaba este campo para la validación
-
   });
 
   // Estado para errores
@@ -65,7 +59,6 @@ const Register = () => {
       confirmPassword,
       plan,
     } = form;
-
 
     // Validación
 
@@ -155,170 +148,184 @@ const Register = () => {
     setShowPaymentModal(false);
   };
 
-
   const goBackHome = () => navigate('/home');
 
   return (
     <Container
       fluid
-      className="vh-100 d-flex justify-content-center align-items-center bg-dark"
+      className="vh-100 d-flex justify-content-center align-items-center bg-black bg-opacity-75"
     >
       {/* Botón de casita */}
       <Button
-        variant="primary"
+        variant="warning"
         onClick={goBackHome}
         className="position-absolute top-0 end-0 m-4"
         aria-label="Volver al inicio"
+        title="Volver al inicio"
       >
-        <BiUser size={25} />
+        <HiHome size={25} className="m-1" />
       </Button>
 
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={6} lg={4}>
-          <div
-            className="p-4 shadow rounded-3 border border-primary"
-            style={{ backgroundColor: '#1e293b', color: 'white' }}
-          >
+          <div className="p-4 shadow rounded-3 border border-warning bg-dark text-white">
             {/* Imagen falsa del perfil */}
             <div className="text-center mb-4">
               <Image
-                src={profilePic}
-                alt="Profile Picture"
-                roundedCircle
+                src={logo}
+                alt="Logo FunctionFit"
+                className="img-fluid rounded"
                 style={{
-                  width: '100px',
-                  height: '100px',
-                  objectFit: 'cover',
-                  borderColor: 'white',
+                  maxHeight: '350px',
+                  padding: '1rem',
                 }}
               />
             </div>
             <h2 className="text-center mb-4">Registrarse</h2>
 
-            {/* Selección de Plan */}
-            <Form.Group controlId="plan" className="mb-3">
-              <Form.Label>Seleccionar Plan:</Form.Label>
-              <Form.Select
-                value={form.plan}
-                onChange={handlePlanChange}
-                className="border rounded px-3 py-2"
-              >
-                <option value="">-- Selecciona un plan --</option>
-                <option value="Básico">Básico ($25.000 por mes)</option>
-                <option value="Premium">Premium ($50.000 por mes)</option>
-                <option value="Elite">Elite ($100.000 por mes)</option>
-              </Form.Select>
-            </Form.Group>
-
-            {/* Nombre y Apellido */}
-            <Row className="mb-3">
-              <Col sm={6}>
-                <Form.Group controlId="name">
-                  <Form.Control
-                    type="text"
-                    placeholder="Nombre"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    ref={nameRef}
-                    className={`border rounded px-3 py-2 ${errors.name ? 'border-danger' : 'border-primary'
-                      }`}
-                    autoComplete="given-name"
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={6}>
-                <Form.Group controlId="lastname">
-                  <Form.Control
-                    type="text"
-                    placeholder="Apellido"
-                    name="lastname"
-                    value={form.lastname}
-                    onChange={handleChange}
-                    ref={nameRef}
-                    className={`border rounded px-3 py-2 ${errors.lastname ? 'border-danger' : 'border-primary'
-                      }`}
-                    autoComplete="family-name"
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-
-            {/* Nombre de Usuario */}
-
-            {/* Email */}
-            <Form.Group controlId="email" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiEnvelope size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="email"
-                  placeholder="Correo electrónico"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.email ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="email"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Teléfono */}
-            <Form.Group controlId="telNumber" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiPhone size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="tel"
-                  placeholder="Teléfono"
-                  name="telNumber"
-                  value={form.telNumber}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.telNumber ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="tel"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Contraseña */}
-            <Form.Group controlId="password" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiLock size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="password"
-                  placeholder="Contraseña"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.password ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="new-password"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Confirmar Contraseña */}
-            <Form.Group controlId="confirmPassword" className="mb-3">
-              <div className="d-flex align-items-center">
-                <BiLockOpen size={20} className="me-2 text-white" />
-                <Form.Control
-                  type="password"
-                  placeholder="Confirmar contraseña"
-                  name="confirmPassword"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  className={`border rounded px-3 py-2 ${errors.confirmPassword ? 'border-danger' : 'border-primary'
-                    }`}
-                  autoComplete="new-password"
-                />
-              </div>
-            </Form.Group>
-
-            {/* Botón de Registro */}
             <Form onSubmit={handleSubmit}>
-              <Button variant="primary" type="submit" className="w-100">
+              {/* Selección de Plan */}
+              <Form.Group controlId="plan" className="mb-3">
+                <Form.Label>Seleccionar Plan:</Form.Label>
+                <Form.Select
+                  value={form.plan}
+                  onChange={handlePlanChange}
+                  className="border border-warning rounded px-3 py-2"
+                >
+                  <option value="">-- Selecciona un plan --</option>
+                  <option value="Básico">Básico ($25.000 por mes)</option>
+                  <option value="Premium">Premium ($50.000 por mes)</option>
+                  <option value="Elite">Elite ($100.000 por mes)</option>
+                </Form.Select>
+              </Form.Group>
+
+              {/* Nombre y Apellido */}
+              <Row className="mb-3">
+                <Col sm={6}>
+                  <Form.Group controlId="name">
+                    <Form.Control
+                      type="text"
+                      placeholder="Nombre"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      ref={nameRef}
+                      className={`border rounded px-3 py-2 ${
+                        errors.name ? 'border-danger' : 'border-warning'
+                      }`}
+                      autoComplete="given-name"
+                    />
+                  </Form.Group>
+                </Col>
+                <Col sm={6}>
+                  <Form.Group controlId="lastname">
+                    <Form.Control
+                      type="text"
+                      placeholder="Apellido"
+                      name="lastname"
+                      value={form.lastname}
+                      onChange={handleChange}
+                      ref={nameRef}
+                      className={`border rounded px-3 py-2 ${
+                        errors.lastname ? 'border-danger' : 'border-warning'
+                      }`}
+                      autoComplete="family-name"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              {/* Email */}
+              <Form.Group controlId="email" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiEnvelope size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="email"
+                    placeholder="Correo electrónico"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.email ? 'border-danger' : 'border-warning'
+                    }`}
+                    autoComplete="email"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Teléfono */}
+              <Form.Group controlId="telNumber" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiPhone size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="tel"
+                    placeholder="Teléfono"
+                    name="telNumber"
+                    value={form.telNumber}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.telNumber ? 'border-danger' : 'border-warning'
+                    }`}
+                    autoComplete="tel"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Contraseña */}
+              <Form.Group controlId="password" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiLock size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="password"
+                    placeholder="Contraseña"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.password ? 'border-danger' : 'border-warning'
+                    }`}
+                    autoComplete="new-password"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Confirmar Contraseña */}
+              <Form.Group controlId="confirmPassword" className="mb-3">
+                <div className="d-flex align-items-center">
+                  <BiLockOpen size={20} className="me-2 text-white" />
+                  <Form.Control
+                    type="password"
+                    placeholder="Confirmar contraseña"
+                    name="confirmPassword"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    className={`border rounded px-3 py-2 ${
+                      errors.confirmPassword
+                        ? 'border-danger'
+                        : 'border-warning'
+                    }`}
+                    autoComplete="new-password"
+                  />
+                </div>
+              </Form.Group>
+
+              {/* Botón de Registro */}
+              <Button
+                variant="warning"
+                type="submit"
+                className="w-100 fw-bold text-dark"
+              >
                 Registrarse
               </Button>
+              <Col className="mt-5 d-flex justify-content-center gap-1">
+                <p>Ya tienes una cuenta?</p>
+                <Link
+                  to="/login"
+                  className="text-decoration-none text-warning fw-bold"
+                >
+                  Iniciar sesión
+                </Link>
+              </Col>
             </Form>
             {/* Modal de pago */}
             <PaymentModal
