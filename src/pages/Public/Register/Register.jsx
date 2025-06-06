@@ -1,6 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router';
-import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
+import { useNavigate, useLocation, Link } from 'react-router';
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Image,
+  Tooltip,
+} from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import {
   BiUser,
@@ -9,8 +17,9 @@ import {
   BiLock,
   BiLockOpen,
 } from 'react-icons/bi'; // Importamos iconos de react-icons
-import profilePic from '../../../assets/credenciales.png';
+import logo from '../../../assets/logo-gym-transparent.png';
 import PaymentModal from '../../../components/PaymentModal';
+import { HiHome } from 'react-icons/hi';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -158,35 +167,31 @@ const Register = () => {
   return (
     <Container
       fluid
-      className="vh-100 d-flex justify-content-center align-items-center bg-dark"
+      className="vh-100 d-flex justify-content-center align-items-center bg-black bg-opacity-75"
     >
       {/* Botón de casita */}
       <Button
-        variant="primary"
+        variant="warning"
         onClick={goBackHome}
         className="position-absolute top-0 end-0 m-4"
         aria-label="Volver al inicio"
+        title="Volver al inicio"
       >
-        <BiUser size={25} />
+        <HiHome size={25} className="m-1" />
       </Button>
 
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={6} lg={4}>
-          <div
-            className="p-4 shadow rounded-3 border border-primary"
-            style={{ backgroundColor: '#1e293b', color: 'white' }}
-          >
+          <div className="p-4 shadow rounded-3 border border-warning bg-dark text-white">
             {/* Imagen falsa del perfil */}
             <div className="text-center mb-4">
               <Image
-                src={profilePic}
-                alt="Profile Picture"
-                roundedCircle
+                src={logo}
+                alt="Logo FunctionFit"
+                className="img-fluid rounded"
                 style={{
-                  width: '100px',
-                  height: '100px',
-                  objectFit: 'cover',
-                  borderColor: 'white',
+                  maxHeight: '350px',
+                  padding: '1rem',
                 }}
               />
             </div>
@@ -199,7 +204,7 @@ const Register = () => {
                 <Form.Select
                   value={form.plan}
                   onChange={handlePlanChange}
-                  className="border rounded px-3 py-2"
+                  className="border border-warning rounded px-3 py-2"
                 >
                   <option value="">-- Selecciona un plan --</option>
                   <option value="Básico">Básico ($25.000 por mes)</option>
@@ -220,7 +225,7 @@ const Register = () => {
                       onChange={handleChange}
                       ref={nameRef}
                       className={`border rounded px-3 py-2 ${
-                        errors.name ? 'border-danger' : 'border-primary'
+                        errors.name ? 'border-danger' : 'border-warning'
                       }`}
                       autoComplete="given-name"
                     />
@@ -236,7 +241,7 @@ const Register = () => {
                       onChange={handleChange}
                       ref={nameRef}
                       className={`border rounded px-3 py-2 ${
-                        errors.lastname ? 'border-danger' : 'border-primary'
+                        errors.lastname ? 'border-danger' : 'border-warning'
                       }`}
                       autoComplete="family-name"
                     />
@@ -255,7 +260,7 @@ const Register = () => {
                     value={form.email}
                     onChange={handleChange}
                     className={`border rounded px-3 py-2 ${
-                      errors.email ? 'border-danger' : 'border-primary'
+                      errors.email ? 'border-danger' : 'border-warning'
                     }`}
                     autoComplete="email"
                   />
@@ -273,7 +278,7 @@ const Register = () => {
                     value={form.telNumber}
                     onChange={handleChange}
                     className={`border rounded px-3 py-2 ${
-                      errors.telNumber ? 'border-danger' : 'border-primary'
+                      errors.telNumber ? 'border-danger' : 'border-warning'
                     }`}
                     autoComplete="tel"
                   />
@@ -291,7 +296,7 @@ const Register = () => {
                     value={form.password}
                     onChange={handleChange}
                     className={`border rounded px-3 py-2 ${
-                      errors.password ? 'border-danger' : 'border-primary'
+                      errors.password ? 'border-danger' : 'border-warning'
                     }`}
                     autoComplete="new-password"
                   />
@@ -309,7 +314,9 @@ const Register = () => {
                     value={form.confirmPassword}
                     onChange={handleChange}
                     className={`border rounded px-3 py-2 ${
-                      errors.confirmPassword ? 'border-danger' : 'border-primary'
+                      errors.confirmPassword
+                        ? 'border-danger'
+                        : 'border-warning'
                     }`}
                     autoComplete="new-password"
                   />
@@ -317,9 +324,22 @@ const Register = () => {
               </Form.Group>
 
               {/* Botón de Registro */}
-              <Button variant="primary" type="submit" className="w-100">
+              <Button
+                variant="warning"
+                type="submit"
+                className="w-100 fw-bold text-dark"
+              >
                 Registrarse
               </Button>
+              <Col className="mt-5 d-flex justify-content-center gap-1">
+                <p>Ya tienes una cuenta?</p>
+                <Link
+                  to="/login"
+                  className="text-decoration-none text-warning fw-bold"
+                >
+                  Iniciar sesión
+                </Link>
+              </Col>
             </Form>
             {/* Modal de pago */}
             <PaymentModal

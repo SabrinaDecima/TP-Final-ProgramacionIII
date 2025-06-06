@@ -9,9 +9,11 @@ import {
   Form,
   FormGroup,
   Row,
+  Image,
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { HouseDoorFill } from 'react-bootstrap-icons';
+import logo from '../../../assets/logo-gym-transparent.png'; // Asegúrate de que la ruta sea correcta
+import { HiHome } from 'react-icons/hi';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -101,30 +103,36 @@ const Login = ({ onLogin }) => {
   return (
     <Container
       fluid
-      className="vh-100 d-flex justify-content-center align-items-center bg-dark"
+      className="vh-100 d-flex justify-content-center align-items-center bg-black bg-opacity-75"
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-          zIndex: 1000,
-        }}
+      {/* Botón de casita */}
+      <Button
+        variant="warning"
+        onClick={goBackLoginHandler}
+        className="position-absolute top-0 end-0 m-4"
+        aria-label="Volver al inicio"
+        title="Volver al inicio"
       >
-        <Button variant="primary" onClick={goBackLoginHandler}>
-          <HouseDoorFill size={25} className="m-1" />
-        </Button>
-      </div>
+        <HiHome size={25} className="m-1" />
+      </Button>
 
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={6} lg={4}>
-          <Card
-            className="p-4 shadow rounded-3 border-primary"
-            style={{ backgroundColor: '#1e293b', color: 'white' }}
-          >
+          <Card className="p-4 shadow rounded-3 border-warning text-white bg-dark ">
             <Card.Body>
               <Row className="mb-2 text-center">
-                <h5>Bienvenido FunctionFit</h5>
+                <Col>
+                  <Image
+                    src={logo}
+                    alt="Logo FunctionFit"
+                    className="img-fluid rounded "
+                    style={{
+                      maxHeight: '350px',
+                      padding: '1rem',
+                    }}
+                  />
+                  <h3>Bienvenido!</h3>
+                </Col>
               </Row>
               <Form onSubmit={handleSubmit}>
                 <FormGroup className="mb-4">
@@ -136,7 +144,7 @@ const Login = ({ onLogin }) => {
                     ref={emailRef}
                     autoComplete="username"
                     className={`input-email ${
-                      errors.email ? 'border-danger' : ''
+                      errors.email ? 'border-danger' : 'border-warning'
                     }`}
                   />
                   {errors.email && (
@@ -152,7 +160,7 @@ const Login = ({ onLogin }) => {
                     value={password}
                     ref={passwordRef}
                     className={`input-password ${
-                      errors.password ? 'border-danger' : ''
+                      errors.password ? 'border-danger' : 'border-warning'
                     }`}
                   />
                   {errors.password && (
@@ -163,8 +171,8 @@ const Login = ({ onLogin }) => {
                 </FormGroup>
                 <div className="d-flex justify-content-center mb-3">
                   <Button
-                    variant="outline-warning"
-                    className="text-white"
+                    variant="warning"
+                    className="text-dark fw-bold"
                     type="submit"
                   >
                     Iniciar sesión

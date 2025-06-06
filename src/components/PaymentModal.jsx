@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { FaCreditCard, FaPager } from 'react-icons/fa6';
 
 const PaymentModal = ({ modalState }) => {
   const [formData, setFormData] = useState({
@@ -82,9 +84,18 @@ const PaymentModal = ({ modalState }) => {
   };
 
   return (
-    <Modal show={modalState.show} onHide={closeModal}>
+    <Modal
+      show={modalState.show}
+      onHide={closeModal}
+      size="lg"
+      centered
+      className="bg-dark bg-opacity-25 text-white"
+    >
       <Modal.Header closeButton>
-        <Modal.Title>Pago con Tarjeta</Modal.Title>
+        <Modal.Title>
+          <FaCreditCard className="me-2" />
+          Pago con Tarjeta
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
@@ -99,6 +110,7 @@ const PaymentModal = ({ modalState }) => {
               onChange={handleChange}
               required
               isInvalid={!!errors.cardholderName}
+              className="border-warning"
             />
             {errors.cardholderName && (
               <Form.Text className="text-danger">
@@ -118,6 +130,7 @@ const PaymentModal = ({ modalState }) => {
               onChange={handleChange}
               required
               isInvalid={!!errors.cardNumber}
+              className="border-warning"
             />
             {errors.cardNumber && (
               <Form.Text className="text-danger">
@@ -139,6 +152,7 @@ const PaymentModal = ({ modalState }) => {
                 onChange={handleChange}
                 required
                 isInvalid={!!errors.expirationDate}
+                className="border-warning"
               />
               {errors.expirationDate && (
                 <Form.Text className="text-danger">
@@ -158,6 +172,7 @@ const PaymentModal = ({ modalState }) => {
                 onChange={handleChange}
                 required
                 isInvalid={!!errors.cvc}
+                className="border-warning"
               />
               {errors.cvc && (
                 <Form.Text className="text-danger">{errorMsgs.cvc}</Form.Text>
@@ -166,13 +181,22 @@ const PaymentModal = ({ modalState }) => {
           </div>
 
           {/* Botón de Confirmación */}
-          <Button variant="primary" type="submit">
-            Confirmar Pago
-          </Button>
+          <div className="d-flex justify-content-end">
+            <Button variant="warning" type="submit" className="text-dark fw-bold">
+              <FaPager /> Confirmar Pago
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
   );
+};
+PaymentModal.propTypes = {
+  modalState: PropTypes.shape({
+    show: PropTypes.bool.isRequired,
+    onHide: PropTypes.func,
+    onConfirm: PropTypes.func,
+  }).isRequired,
 };
 
 export default PaymentModal;
