@@ -295,6 +295,18 @@ Esto aplica un fondo blanco al enlace activo. Puedes personalizar el color en el
 
 ---
 
+## 🔑 Nueva gestión de token JWT (autenticación)
+
+A partir de la última actualización, la gestión del token JWT se centralizó en el archivo `src/services/authService.js` para mejorar la seguridad y el mantenimiento del código.
+
+- Todas las operaciones relacionadas con el token (guardar, obtener, eliminar) se realizan mediante funciones reutilizables: `getToken()`, `setToken(token)`, y `removeToken()`.
+- El componente principal (`App.jsx`) utiliza estas funciones para verificar si el usuario está autenticado y actualizar el estado global de la app.
+- Si el token es válido, el usuario permanece logueado incluso al recargar la página o cerrar/abrir el navegador.
+- Si el token es inválido o se elimina (logout), el usuario es redirigido automáticamente a la pantalla de login.
+- Esto permite una experiencia de usuario más fluida y segura, y facilita la implementación de futuras mejoras en la autenticación.
+
+---
+
 ## Cambios recientes
 
 Consulta el archivo [README.changelog.md](./README.changelog.md) para ver el detalle de los últimos cambios.
