@@ -12,11 +12,11 @@ import Dashboard from './pages/Private/Dashboard/Dashboard';
 import NotFound from './pages/NotFound';
 import Protected from './routes/Protected';
 import Classes from './pages/Private/Classes/Classes';
-import Profile from './pages/Private/Profile/Profile';
 import Historical from './pages/Private/Historical/Historical';
 import Layout from './components/Layout';
 import ForgotPassword from './pages/Public/ForgotPassword/ForgotPassword';
 import { getToken, removeToken } from './services/authService';
+import Pagos from './pages/Private/pagos/Pagos';
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -97,11 +97,7 @@ const App = () => {
           <Route
             path="registro"
             element={
-              isSignedIn ? (
-                <Navigate to="/gimnasio" replace />
-              ) : (
-                <Register />
-              )
+              isSignedIn ? <Navigate to="/gimnasio" replace /> : <Register />
             }
           />
           <Route element={<Protected role={role} isSignedIn={isSignedIn} />}>
@@ -118,7 +114,7 @@ const App = () => {
             >
               <Route index element={<Dashboard role={role} />} />
               <Route path="clases" element={<Classes id={id} />} />
-              <Route path="pagos" element={<Profile />} />
+              <Route path="pagos" element={<Pagos id={id} />} />
               <Route path="historial" element={<Historical id={id} />} />
             </Route>
           </Route>

@@ -147,7 +147,7 @@ const PaymentModal = ({ modalState }) => {
               <Form.Control
                 type="text"
                 name="expirationDate"
-                placeholder="09/23"
+                placeholder="09/29"
                 value={formData.expirationDate}
                 onChange={handleChange}
                 required
