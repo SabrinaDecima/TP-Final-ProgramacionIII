@@ -1,22 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router';
-import {
-  Form,
-  Button,
-  Container,
-  Row,
-  Col,
-  Image,
-  Tooltip,
-} from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import {
-  BiUser,
-  BiEnvelope,
-  BiPhone,
-  BiLock,
-  BiLockOpen,
-} from 'react-icons/bi'; // Importamos iconos de react-icons
+import { BiEnvelope, BiPhone, BiLock, BiLockOpen } from 'react-icons/bi'; // Importamos iconos de react-icons
 import logo from '../../../assets/logo-gym-transparent.png';
 import PaymentModal from '../../../components/PaymentModal';
 import { HiHome } from 'react-icons/hi';
