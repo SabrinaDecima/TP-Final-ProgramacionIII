@@ -39,10 +39,10 @@ const Sidebar = ({ role }) => {
               <Link to="/gimnasio/members" className="nav-link">
                 Socios
               </Link>
-              <Link to="/gimnasio/historial" className="nav-link">
+              <Link to="/gimnasio/admin-historial" className="nav-link">
                 Historial
               </Link>
-              <Link to="/gimnasio/classes" className="nav-link">
+              <Link to="/gimnasio/admin-clases" className="nav-link">
                 Clases
               </Link>
             </Nav>
@@ -55,8 +55,8 @@ const Sidebar = ({ role }) => {
               <Link to="/gimnasio/members-management" className="nav-link">
                 Gestion
               </Link>
-              <Link to="/gimnasio/historial" className="nav-link">
-                Historial
+              <Link to="/gimnasio/movimientos" className="nav-link">
+                Movimientos
               </Link>
             </Nav>
           )}

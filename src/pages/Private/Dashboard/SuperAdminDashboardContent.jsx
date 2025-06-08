@@ -7,15 +7,15 @@ const SuperAdminDashboardContent = () => {
   const cardData = [
     {
       title: 'Gestion',
-      text: 'Gestiona el gimnasio y sus administradores',
+      text: 'Gestiona los roles de los usuarios',
       buttonName: 'Ver',
       pathname: 'members-management',
     },
     {
-      title: 'Ver historial',
-      text: 'Ver el historial de gimnasios',
-      buttonName: 'Historial',
-      pathname: 'historial',
+      title: 'Movimientos',
+      text: 'Movimientos del gimnasio',
+      buttonName: 'Movimientos',
+      pathname: 'movimientos',
     },
   ];
   const handleRoute = (page) => {

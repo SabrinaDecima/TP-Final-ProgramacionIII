@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
+import { Container, Row, Col, Card, Spinner, Alert, Button } from "react-bootstrap";
+import { successToast, errorToast } from "../../utils/notification"; // Ajusta ruta
 
 const Historical = ({ id }) => {
   const [historicalData, setHistoricalData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [unsubscribingIds, setUnsubscribingIds] = useState([]); // Para controlar carga individual
 
-  useEffect(() => {
+  const fetchData = () => {
+    setLoading(true);
     fetch(`http://localhost:3000/users/${id}/classes`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener historial");
@@ -21,7 +24,38 @@ const Historical = ({ id }) => {
         setError(err.message);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [id]);
+
+  const handleUnsubscribe = async (classId) => {
+    setUnsubscribingIds((ids) => [...ids, classId]);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/users/${id}/classes/${classId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        errorToast(data.error || "No se pudo desinscribir");
+      } else {
+        successToast("Desinscripción exitosa");
+        // Actualizar listado quitando la clase desinscripta
+        setHistoricalData((prev) =>
+          prev.filter((item) => item.id !== classId)
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      errorToast("Error de red al intentar desinscribirse");
+    } finally {
+      setUnsubscribingIds((ids) => ids.filter((id) => id !== classId));
+    }
+  };
 
   if (loading) {
     return (
@@ -60,9 +94,19 @@ const Historical = ({ id }) => {
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
                   <Card.Text>
-                    <strong>Instructor:</strong> {item.instructor}<br />
+                    <strong>Instructor:</strong> {item.instructor}
+                    <br />
                     <strong>Duración:</strong> {item.durationMinutes} minutos
                   </Card.Text>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleUnsubscribe(item.id)}
+                    disabled={unsubscribingIds.includes(item.id)}
+                  >
+                    {unsubscribingIds.includes(item.id)
+                      ? "Desinscribiendo..."
+                      : "Desinscribirse"}
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>

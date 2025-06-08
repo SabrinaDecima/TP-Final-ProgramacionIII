@@ -17,6 +17,11 @@ import Layout from './components/Layout';
 import ForgotPassword from './pages/Public/ForgotPassword';
 import { getToken, removeToken } from './services/authService';
 import Pagos from './pages/Private/Pagos';
+import Members from './pages/Private/Members';
+import AdminClases from './pages/Private/AdminClases';
+import AdminHistorial from './pages/Private/AdminHistorial';
+import MembersSA from './pages/Private/MembersSA';
+import Movimientos from './pages/Private/Dashboard/Movimientos';
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -116,6 +121,11 @@ const App = () => {
               <Route path="clases" element={<Classes id={id} />} />
               <Route path="pagos" element={<Pagos id={id} />} />
               <Route path="historial" element={<Historical id={id} />} />
+              <Route path='members' element={<Members />} />
+              <Route path='admin-clases' element={<AdminClases />} />
+              <Route path='admin-historial' element={<AdminHistorial />} />
+              <Route path='members-management' element={<MembersSA />} />
+              <Route path='movimientos' element={<Movimientos />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />

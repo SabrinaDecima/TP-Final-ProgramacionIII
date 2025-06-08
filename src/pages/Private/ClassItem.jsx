@@ -1,35 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Button } from 'react-bootstrap'
+import { errorToast, successToast, warningToast } from '../../utils/notification.jsx'
 
 const ClassItem = ({ clase, id }) => {
+    const [loading, setLoading] = useState(false)
+    const [inscrito, setInscrito] = useState(false)
+
     const handleSolicitarTurno = async () => {
+        setLoading(true)
         try {
             const response = await fetch(`http://localhost:3000/users/${id}/classes/${clase.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
+            })
 
-            const data = await response.json();
+            const data = await response.json()
 
             if (!response.ok) {
-                // Manejo específico de error
                 if (data.error === 'El usuario ya está inscrito en esta clase') {
-                    alert('Ya estás inscripto en esta clase.');
+                    warningToast('Ya estás inscripto en esta clase.')
                 } else {
-                    alert(data.error || 'No se pudo completar la inscripción');
+                    errorToast(data.error || 'No se pudo completar la inscripción')
                 }
-                return;
+                setLoading(false)
+                return
             }
 
-            alert('Inscripción exitosa');
+            successToast('Inscripción exitosa')
+            setInscrito(true)
         } catch (error) {
-            console.error(error);
-            alert('Error de red al intentar inscribirse');
+            console.error(error)
+            errorToast('Error de red al intentar inscribirse')
+        } finally {
+            setLoading(false)
         }
-    };
-
+    }
 
     return (
         <Card>
@@ -40,13 +47,19 @@ const ClassItem = ({ clase, id }) => {
                 style={{ height: '200px', objectFit: 'cover' }}
             />
             <Card.Body>
-                <Card.Title>{clase.name}</Card.Title>
+                <Card.Title>{clase.name.toUpperCase()}</Card.Title>
                 <Card.Text>
                     <strong>Instructor:</strong> {clase.instructor}
                     <br />
                     <strong>Duración:</strong> {clase.durationMinutes} minutos
                 </Card.Text>
-                <Button variant="primary" onClick={handleSolicitarTurno}>Solicitar turno</Button>
+                <Button
+                    variant="primary"
+                    onClick={handleSolicitarTurno}
+                    disabled={loading || inscrito}
+                >
+                    {inscrito ? 'Inscripto' : loading ? 'Inscribiendo...' : 'Solicitar turno'}
+                </Button>
             </Card.Body>
         </Card>
     )

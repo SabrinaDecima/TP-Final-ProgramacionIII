@@ -15,13 +15,13 @@ const AdminDashboardContent = () => {
       title: 'Ver historial',
       text: 'Ver el historial de clases y pagos',
       buttonName: 'Historial',
-      pathname: 'historial',
+      pathname: 'admin-historial',
     },
     {
-      title: 'Agregar clases',
-      text: 'Agrega nuevas clases al sistema',
+      title: 'Gestion clases',
+      text: 'Gestioná las clases del sistema',
       buttonName: 'Agregar',
-      pathname: 'clases',
+      pathname: 'admin-clases',
     },
   ];
   const handleRoute = (page) => {
