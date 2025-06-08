@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Container, Row, Col, Card, Spinner, Alert, Button } from "react-bootstrap";
 import { successToast, errorToast } from "../../utils/notification"; // Ajusta ruta
+import ClassesReservedContext from "../../context/ClassesReservedContext";
+
+
+
 
 const Historical = ({ id }) => {
   const [historicalData, setHistoricalData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [unsubscribingIds, setUnsubscribingIds] = useState([]); // Para controlar carga individual
+
+  const { updateClassesPerDay } = useContext(ClassesReservedContext);
 
   const fetchData = () => {
     setLoading(true);
@@ -17,6 +23,7 @@ const Historical = ({ id }) => {
       })
       .then((data) => {
         setHistoricalData(data.classes);
+        updateClassesPerDay(data.classes); 
         setLoading(false);
       })
       .catch((err) => {

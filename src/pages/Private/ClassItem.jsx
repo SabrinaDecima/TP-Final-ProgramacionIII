@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+
 import { Card, Button } from 'react-bootstrap'
 import { errorToast, successToast, warningToast } from '../../utils/notification.jsx'
+import ClassesReservedContext from '../../context/ClassesReservedContext.jsx'
+
 
 const ClassItem = ({ clase, id }) => {
     const [loading, setLoading] = useState(false)
     const [inscrito, setInscrito] = useState(false)
 
+    const { classesPerDay } = useContext(ClassesReservedContext);
+
+    const classDate = new Date(clase.date).toLocaleDateString();
+    const isAlreadyReserved = classesPerDay[classDate];
+
     const handleSolicitarTurno = async () => {
+        if (isAlreadyReserved) {
+            warningToast('Ya tienes una clase reservada para este día.');
+            return;
+        }
         setLoading(true)
         try {
             const response = await fetch(`http://localhost:3000/users/${id}/classes/${clase.id}`, {
@@ -56,7 +68,7 @@ const ClassItem = ({ clase, id }) => {
                 <Button
                     variant="primary"
                     onClick={handleSolicitarTurno}
-                    disabled={loading || inscrito}
+                    disabled={loading || inscrito || isAlreadyReserved}
                 >
                     {inscrito ? 'Inscripto' : loading ? 'Inscribiendo...' : 'Solicitar turno'}
                 </Button>

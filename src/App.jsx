@@ -1,5 +1,7 @@
+// App.jsx
+
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
 
@@ -22,6 +24,7 @@ import AdminClases from './pages/Private/AdminClases';
 import AdminHistorial from './pages/Private/AdminHistorial';
 import MembersSA from './pages/Private/MembersSA';
 import Movimientos from './pages/Private/Dashboard/Movimientos';
+import { ClassesReservedProvider } from './context/ClassesReservedContext'; // ✅ Importado
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -106,26 +109,29 @@ const App = () => {
             }
           />
           <Route element={<Protected role={role} isSignedIn={isSignedIn} />}>
+            {/* 🔽 Envolver las rutas protegidas en el Provider */}
             <Route
               path="/gimnasio/*"
               element={
-                <Layout
-                  onLogout={handleLogout}
-                  userEmail={email}
-                  role={role}
-                  id={id}
-                />
+                <ClassesReservedProvider> {/* ✅ Contexto envolviendo */}
+                  <Layout
+                    onLogout={handleLogout}
+                    userEmail={email}
+                    role={role}
+                    id={id}
+                  />
+                </ClassesReservedProvider>
               }
             >
               <Route index element={<Dashboard role={role} />} />
               <Route path="clases" element={<Classes id={id} />} />
               <Route path="pagos" element={<Pagos id={id} />} />
               <Route path="historial" element={<Historical id={id} />} />
-              <Route path='members' element={<Members />} />
-              <Route path='admin-clases' element={<AdminClases />} />
-              <Route path='admin-historial' element={<AdminHistorial />} />
-              <Route path='members-management' element={<MembersSA />} />
-              <Route path='movimientos' element={<Movimientos />} />
+              <Route path="members" element={<Members />} />
+              <Route path="admin-clases" element={<AdminClases />} />
+              <Route path="admin-historial" element={<AdminHistorial />} />
+              <Route path="members-management" element={<MembersSA />} />
+              <Route path="movimientos" element={<Movimientos />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
