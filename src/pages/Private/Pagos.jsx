@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import {
   Container,
   Card,
@@ -10,6 +10,7 @@ import {
   Col,
 } from 'react-bootstrap';
 import PaymentModal from '../../components/PaymentModal';
+import { GlobalDataContext } from '../../context/GlobalDataContext';
 
 const MESES = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -17,6 +18,8 @@ const MESES = [
 ];
 
 const Pagos = ({ id }) => {
+  const { incrementPagosVisit } = useContext(GlobalDataContext);
+  const hasVisited = useRef(false);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,6 +40,13 @@ const Pagos = ({ id }) => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (!hasVisited.current) {
+      incrementPagosVisit();
+      hasVisited.current = true;
+    }
+  }, []);
 
   useEffect(() => {
     fetchCuotas();

@@ -1,7 +1,7 @@
 // App.jsx
 
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
 
@@ -24,7 +24,7 @@ import AdminClases from './pages/Private/AdminClases';
 import AdminHistorial from './pages/Private/AdminHistorial';
 import MembersSA from './pages/Private/MembersSA';
 import Movimientos from './pages/Private/Dashboard/Movimientos';
-import { ClassesReservedProvider } from './context/ClassesReservedContext'; // ✅ Importado
+
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -109,18 +109,15 @@ const App = () => {
             }
           />
           <Route element={<Protected role={role} isSignedIn={isSignedIn} />}>
-            {/* 🔽 Envolver las rutas protegidas en el Provider */}
             <Route
               path="/gimnasio/*"
               element={
-                <ClassesReservedProvider> {/* ✅ Contexto envolviendo */}
-                  <Layout
-                    onLogout={handleLogout}
-                    userEmail={email}
-                    role={role}
-                    id={id}
-                  />
-                </ClassesReservedProvider>
+                <Layout
+                  onLogout={handleLogout}
+                  userEmail={email}
+                  role={role}
+                  id={id}
+                />
               }
             >
               <Route index element={<Dashboard role={role} />} />

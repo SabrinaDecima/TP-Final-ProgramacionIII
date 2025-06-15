@@ -34,7 +34,7 @@ const MemberDashboardContent = () => {
       <div className="d-flex flex-column flex-md-row flex-wrap justify-content-evenly align-items-center gap-5 mb-5"></div>
       <div className="d-flex flex-column flex-md-row flex-wrap justify-content-evenly align-items-center gap-5">
         {cardData.map((card, index) => (
-          <div key={index}>
+          <div key={card.pathname}>
             <CardWidget card={card} onRoute={handleRoute} />
           </div>
         ))}
