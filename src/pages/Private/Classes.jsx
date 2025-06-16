@@ -2,21 +2,17 @@ import { Row, Col } from 'react-bootstrap';
 import ClassItem from './ClassItem';
 import { useEffect, useState, useContext, useRef } from 'react';
 import { GlobalDataContext } from '../../context/GlobalDataContext';
-import { getToken } from '../../services/authService';
+import { useFetchAuth } from '../../hooks/useFetchAuth';
 
 const Classes = ({ id }) => {
   const { incrementClasesVisit } = useContext(GlobalDataContext);
   const hasVisited = useRef(false);
-
   const [clases, setClases] = useState([]);
+
+  const { fetchAuth } = useFetchAuth();
+
   useEffect(() => {
-    fetch('http://localhost:3000/clases', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`,
-      }
-    })
+    fetchAuth('http://localhost:3000/clases')
       .then((res) => res.json())
       .then((data) => setClases([...data]))
       .catch((err) => console.log(err));
