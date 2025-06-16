@@ -2,6 +2,7 @@ import { Row, Col } from 'react-bootstrap';
 import ClassItem from './ClassItem';
 import { useEffect, useState, useContext, useRef } from 'react';
 import { GlobalDataContext } from '../../context/GlobalDataContext';
+import { getToken } from '../../services/authService';
 
 const Classes = ({ id }) => {
   const { incrementClasesVisit } = useContext(GlobalDataContext);
@@ -9,7 +10,13 @@ const Classes = ({ id }) => {
 
   const [clases, setClases] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/clases')
+    fetch('http://localhost:3000/clases', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
+      }
+    })
       .then((res) => res.json())
       .then((data) => setClases([...data]))
       .catch((err) => console.log(err));

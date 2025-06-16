@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { Card, Button } from 'react-bootstrap'
 import { errorToast, successToast, warningToast } from '../../utils/notification.jsx'
+import { getToken } from '../../services/authService.js'
 
 
 const ClassItem = ({ clase, id }) => {
@@ -16,6 +17,7 @@ const ClassItem = ({ clase, id }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${getToken()}`,
                 },
             })
 

@@ -3,6 +3,7 @@ import { ListGroup, Container, Row, Col, Table, Spinner } from 'react-bootstrap'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { errorToast } from '../../utils/notification.jsx'
+import { getToken } from '../../services/authService.js'
 
 const AdminHistorial = () => {
     const [users, setUsers] = useState([])
@@ -16,7 +17,13 @@ const AdminHistorial = () => {
         const fetchUsers = async () => {
             setLoadingUsers(true)
             try {
-                const res = await fetch('http://localhost:3000/users')
+                const res = await fetch('http://localhost:3000/users', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${getToken()}`,
+                    }
+                })
                 if (!res.ok) throw new Error('Error al cargar usuarios')
                 const data = await res.json()
                 const usersArray = Array.isArray(data) ? data : data.users || []
@@ -42,8 +49,20 @@ const AdminHistorial = () => {
 
         try {
             const [classesRes, cuotasRes] = await Promise.all([
-                fetch(`http://localhost:3000/users/${user.id}/classes`),
-                fetch(`http://localhost:3000/users/${user.id}/cuotas/impagas`),
+                fetch(`http://localhost:3000/users/${user.id}/classes`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${getToken()}`,
+                    }
+                }),
+                fetch(`http://localhost:3000/users/${user.id}/cuotas/impagas`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${getToken()}`,
+                    }
+                }),
             ])
 
             if (!classesRes.ok) throw new Error('Error al obtener clases')

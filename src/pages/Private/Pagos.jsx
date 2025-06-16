@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap';
 import PaymentModal from '../../components/PaymentModal';
 import { GlobalDataContext } from '../../context/GlobalDataContext';
+import { getToken } from '../../services/authService';
 
 const MESES = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -31,7 +32,13 @@ const Pagos = ({ id }) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`http://localhost:3000/users/${id}/cuotas/impagas`);
+      const res = await fetch(`http://localhost:3000/users/${id}/cuotas/impagas`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
       if (!res.ok) throw new Error('Error al cargar cuotas');
       const json = await res.json();
       setData(json);
@@ -68,7 +75,7 @@ const Pagos = ({ id }) => {
     try {
       const res = await fetch('http://localhost:3000/cuotas/pagar', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({ userId: data.usuario.id, month: cuota.mes }),
       });
       const json = await res.json();

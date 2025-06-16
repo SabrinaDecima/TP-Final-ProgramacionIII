@@ -3,6 +3,7 @@ import { Container, Spinner, Table, Card, Row, Col, Badge } from 'react-bootstra
 import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { errorToast } from '../../../utils/notification.jsx';
+import { getToken } from '../../../services/authService.js';
 
 const Movimientos = () => {
     const [loading, setLoading] = useState(true);
@@ -12,7 +13,13 @@ const Movimientos = () => {
     useEffect(() => {
         const fetchResumen = async () => {
             try {
-                const res = await fetch('http://localhost:3000/superadmin/overview');
+                const res = await fetch('http://localhost:3000/superadmin/overview', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${getToken()}`,
+                    },
+                });
                 if (!res.ok) throw new Error('Error en la respuesta del servidor');
                 const data = await res.json();
                 setResumen(data.resumen);

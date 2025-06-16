@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Spinner, Container, Modal, Button, Form } from 'react-bootstrap';
 import { errorToast, successToast } from '../../utils/notification.jsx';
+import { getToken } from '../../services/authService.js';
 
 const Members = () => {
   const [members, setMembers] = useState([]);
@@ -21,6 +22,10 @@ const Members = () => {
     try {
       const res = await fetch(`http://localhost:3000/users/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`
+        }
       });
 
       if (!res.ok) {
@@ -40,7 +45,7 @@ const Members = () => {
     try {
       const res = await fetch(`http://localhost:3000/users/${selectedUser.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify(formData),
       });
 
@@ -83,7 +88,13 @@ const Members = () => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const res = await fetch('http://localhost:3000/users');
+        const res = await fetch('http://localhost:3000/users', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+          }
+        });
 
         if (!res.ok) {
           const errData = await res.json();

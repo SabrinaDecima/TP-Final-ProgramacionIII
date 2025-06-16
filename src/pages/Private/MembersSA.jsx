@@ -3,6 +3,7 @@ import { Container, Table, Button, Modal, Form, Spinner } from 'react-bootstrap'
 import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { errorToast, successToast } from '../../utils/notification.jsx';
+import { getToken } from '../../services/authService.js';
 
 const roleColors = {
   1: '#ffd700',  // Superadmin - dorado
@@ -27,7 +28,13 @@ const MembersSA = () => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const res = await fetch('http://localhost:3000/users');
+        const res = await fetch('http://localhost:3000/users', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`,
+          },
+        });
         if (!res.ok) throw new Error('Error al cargar usuarios');
         const data = await res.json();
         setUsers(data.users || []);
@@ -60,7 +67,7 @@ const MembersSA = () => {
     try {
       const res = await fetch(`http://localhost:3000/users/${editingUser.id}/role`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({ roleId: newRoleId }),
       });
       if (!res.ok) throw new Error('Error actualizando rol');

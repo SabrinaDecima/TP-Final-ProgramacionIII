@@ -2,6 +2,7 @@ import { use, useContext, useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Card, Spinner, Alert, Button } from "react-bootstrap";
 import { successToast, errorToast } from "../../utils/notification"; // Ajusta ruta
 import { GlobalDataContext } from "../../context/GlobalDataContext";
+import { getToken } from "../../services/authService";
 
 
 const Historical = ({ id }) => {
@@ -14,7 +15,13 @@ const Historical = ({ id }) => {
 
   const fetchData = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/users/${id}/classes`)
+    fetch(`http://localhost:3000/users/${id}/classes`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    })
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener historial");
         return res.json();
@@ -48,6 +55,10 @@ const Historical = ({ id }) => {
         `http://localhost:3000/users/${id}/classes/${classId}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`,
+          },
         }
       );
       const data = await response.json();

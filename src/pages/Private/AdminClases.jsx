@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Spinner, Container, Modal, Button, Form } from 'react-bootstrap';
 import { errorToast, successToast } from '../../utils/notification.jsx';
+import { getToken } from '../../services/authService.js';
 
 const AdminClases = () => {
   const [clases, setClases] = useState([]);
@@ -20,7 +21,13 @@ const AdminClases = () => {
   useEffect(() => {
     const fetchClases = async () => {
       try {
-        const res = await fetch('http://localhost:3000/clases');
+        const res = await fetch('http://localhost:3000/clases', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`,
+          },
+        });
         if (!res.ok) throw new Error('Error al obtener las clases');
         const data = await res.json();
         setClases(data);
@@ -61,7 +68,7 @@ const AdminClases = () => {
     try {
       const res = await fetch(`http://localhost:3000/clases/${selectedClass.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({
           ...formData,
           durationMinutes: formData.durationMinutes ? Number(formData.durationMinutes) : null,
@@ -92,7 +99,7 @@ const AdminClases = () => {
 
     try {
       const res = await fetch(`http://localhost:3000/clases/${id}`, {
-        method: 'DELETE',
+        method: 'DELETE', headers: { Authorization: `Bearer ${getToken()}` },
       });
 
       if (!res.ok) {
