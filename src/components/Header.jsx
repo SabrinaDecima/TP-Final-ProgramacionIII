@@ -36,10 +36,6 @@ const Header = ({ userEmail = 'usuario@gmail.com', handleLogout }) => {
               className="dropdown-menu show position-absolute top-100 end-0 mt-2"
               style={{ zIndex: 1050 }}
             >
-              <a className="dropdown-item" href="/perfil">
-                Ver perfil
-              </a>
-              <div className="dropdown-divider"></div>
               <a
                 className="dropdown-item text-danger"
                 onClick={onLogout}
