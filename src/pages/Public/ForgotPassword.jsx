@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Container, Row } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { HouseDoorFill } from 'react-bootstrap-icons';
 
@@ -26,13 +25,11 @@ const ForgotPassword = () => {
         body: JSON.stringify({ email }),
       });
 
-      toast.success(
-        'Se ha enviado un correo con instrucciones para restablecer tu contraseña.'
-      );
+      
       setLoading(false);
     } catch (err) {
       setError(
-        'Hubo un error al enviar el correo. Inténtalo de nuevo más tarde.'
+        
       );
       setLoading(false);
     }
