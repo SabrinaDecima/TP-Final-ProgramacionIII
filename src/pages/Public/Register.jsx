@@ -153,7 +153,7 @@ const Register = () => {
   return (
     <Container
       fluid
-      className="vh-100 d-flex justify-content-center align-items-center bg-black bg-opacity-75"
+      className="d-flex justify-content-center align-items-center bg-black bg-opacity-75"
     >
       {/* Botón de casita */}
       <Button
@@ -176,7 +176,7 @@ const Register = () => {
                 alt="Logo FunctionFit"
                 className="img-fluid rounded"
                 style={{
-                  maxHeight: '350px',
+                  maxHeight: '150px',
                   padding: '1rem',
                 }}
               />
