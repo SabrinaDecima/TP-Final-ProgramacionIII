@@ -17,6 +17,14 @@ const AdminClases = () => {
     imageUrl: ''
   });
 
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [createFormData, setCreateFormData] = useState({
+    name: '',
+    instructor: '',
+    durationMinutes: '',
+    imageUrl: ''
+  });
+
   // Fetch clases
   useEffect(() => {
     const fetchClases = async () => {
@@ -114,6 +122,45 @@ const AdminClases = () => {
     }
   };
 
+  // Cambiar inputs para crear
+  const handleCreateChange = (e) => {
+    const { name, value } = e.target;
+    setCreateFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Crear nueva clase (POST)
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    if (!createFormData.name || !createFormData.instructor) {
+      errorToast('El nombre y el instructor son obligatorios');
+      return;
+    }
+    try {
+      const res = await fetch('http://localhost:3000/clases', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`
+        },
+        body: JSON.stringify({
+          ...createFormData,
+          durationMinutes: createFormData.durationMinutes ? Number(createFormData.durationMinutes) : null,
+        })
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || 'Error al crear la clase');
+      }
+      const newClass = await res.json();
+      setClases(prev => [...prev, newClass]);
+      successToast('Clase creada correctamente');
+      setShowCreateModal(false);
+      setCreateFormData({ name: '', instructor: '', durationMinutes: '', imageUrl: '' });
+    } catch (error) {
+      errorToast(error.message);
+    }
+  };
+
   if (loading) {
     return (
       <Container className="text-center mt-5">
@@ -126,6 +173,11 @@ const AdminClases = () => {
   return (
     <Container className="mt-4">
       <h2 className="mb-4">Gestión de Clases</h2>
+      <div className="d-flex align-items-center justify-content-end mb-3">
+      <Button className="mb-3 shadow-lg fw-bold" variant="warning" onClick={() => setShowCreateModal(true)}>
+        Agregar nueva clase
+      </Button>
+      </div>
 
       <Table striped bordered hover responsive>
         <thead>
@@ -220,6 +272,64 @@ const AdminClases = () => {
             Guardar Cambios
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      {/* Modal creación */}
+      <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Nueva Clase</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={handleCreate}>
+          <Modal.Body>
+            <Form.Group className="mb-3">
+              <Form.Label>Nombre</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={createFormData.name}
+                onChange={handleCreateChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Instructor</Form.Label>
+              <Form.Control
+                type="text"
+                name="instructor"
+                value={createFormData.instructor}
+                onChange={handleCreateChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Duración (minutos)</Form.Label>
+              <Form.Control
+                type="number"
+                name="durationMinutes"
+                value={createFormData.durationMinutes}
+                onChange={handleCreateChange}
+                min={0}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>URL Imagen</Form.Label>
+              <Form.Control
+                type="text"
+                name="imageUrl"
+                value={createFormData.imageUrl}
+                onChange={handleCreateChange}
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowCreateModal(false)}>
+              Cancelar
+            </Button>
+            <Button variant="primary" type="submit">
+              Crear
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </Container>
   );
