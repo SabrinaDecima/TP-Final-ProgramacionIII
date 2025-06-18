@@ -10,8 +10,8 @@ const Layout = ({ onLogout, userEmail, role }) => {
       <Header userEmail={userEmail} handleLogout={onLogout} />
       <div className="d-flex flex-grow-1 pt-5">
         <Sidebar role={role} />
-        <main className="flex-grow-1 p-3 mt-5" style={{ marginLeft: '250px' }}>
-          <Container fluid>
+        <main className="flex-grow-1 p-3 mt-5 mb-4" style={{ marginLeft: '250px' }}>
+          <Container fluid className='mb-4'>
             <Outlet />
           </Container>
         </main>
