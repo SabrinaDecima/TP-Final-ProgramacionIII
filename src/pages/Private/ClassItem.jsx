@@ -59,7 +59,8 @@ const ClassItem = ({ clase, id }) => {
                     <strong>Duración:</strong> {clase.durationMinutes} minutos
                 </Card.Text>
                 <Button
-                    variant="primary"
+                    variant="warning"
+                    className="fw-bold shadow-lg"
                     onClick={handleSolicitarTurno}
                     disabled={loading || inscrito}
                 >
