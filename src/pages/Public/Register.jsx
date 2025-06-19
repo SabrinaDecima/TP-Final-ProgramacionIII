@@ -193,9 +193,9 @@ const Register = () => {
                   className="border border-warning rounded px-3 py-2"
                 >
                   <option value="">-- Selecciona un plan --</option>
-                  <option value="Básico">Básico ($25.000 por mes)</option>
-                  <option value="Premium">Premium ($50.000 por mes)</option>
-                  <option value="Elite">Elite ($100.000 por mes)</option>
+                  <option value="basic">Básico ($25.000 por mes)</option>
+                  <option value="premium">Premium ($50.000 por mes)</option>
+                  <option value="elite">Elite ($100.000 por mes)</option>
                 </Form.Select>
               </Form.Group>
 
